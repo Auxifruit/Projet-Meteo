@@ -27,7 +27,7 @@ Le script a besoin de plusieures options pour fonctionner. Vous pouvez les saisi
 Les options possibles pour le script sont:
 
 
-# TYPE DE DONNÉES
+### TYPE DE DONNÉES
 
 Les options de type de données sont:
 
