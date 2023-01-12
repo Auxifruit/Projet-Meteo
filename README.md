@@ -100,15 +100,10 @@ Exemple d'utilisation:
 $ bash projet.sh -fdata.csv -d2015-12-8/2016-5-25 -h -p1 -S --abr
 ```
 Le script utilise les données provenant du fichier data.csv.
-
 Il ne prend en compte que les données entre le 8-12-2015 et le 25-5-2016.
-
 Il traite les donneés de l'altitude.
-
 Il traite les donneés de la pression en mode 1.
-
 Il ne prend en compte que les données provenant de Saint-Pierre et Miquelon.
-
 Le tri se fait avec un ABR.
 
 
