@@ -38,11 +38,11 @@ Les options de type de données sont:
 	-h pour l'altitude
 	-m pour l'humidité
 
-Ces options servent à savoir quel type de données vous voulez traiter.
-Les options -t et -p doivent être accomapgné du mode 1, 2, 3.
-Au moins l'une de ces options doivent être présentes pour que le script fonctionne.
-Il n'y a pas de limite quand a l'utilisation de ces options.
-Vous pouvez demandez de traiter la température, le vent et l'altitude en une seule fois.
+Ces options servent à savoir quel type de données vous voulez traiter. <br />
+Les options -t et -p doivent être accomapgné du mode 1, 2, 3. <br />
+Au moins l'une de ces options doivent être présentes pour que le script fonctionne. <br />
+Il n'y a pas de limite quand a l'utilisation de ces options. <br />
+Vous pouvez demandez de traiter la température, le vent et l'altitude en une seule fois. <br />
 
 ### LIEUX
 
@@ -55,10 +55,10 @@ Les options de lieux sont:
 	-O pour l'océan Indien
 	-Q pour l'Antarctique
 
-Ces options servent à savoir si vous voulez filtrer selon un lieux en particulier.
-Ces options ne sont pas obligatoires, si aucune n'est renseignée il n'y aura pas de filtre selon le lieux.
-Seule une option de lieux est possible à la fois.
-Si plusieurs options sont renseignées, la première selon l'ordre ci-dessus est prise en compte.
+Ces options servent à savoir si vous voulez filtrer selon un lieux en particulier. <br />
+Ces options ne sont pas obligatoires, si aucune n'est renseignée il n'y aura pas de filtre selon le lieux. <br />
+Seule une option de lieux est possible à la fois. <br />
+Si plusieurs options sont renseignées, la première selon l'ordre ci-dessus est prise en compte. <br />
 
 ### DATE
 
@@ -66,10 +66,10 @@ L'options de date:
 
 	-d<min><max>
 
-Cette option sert à savoir si vous voulez filtrer selon une date en particulier.
-Cette option n'est pas obligatoire, si elle n'est pas renseignée il n'y aura pas de filtre selon la date.
-Le format des dates est une chaine de caractère de la forme : AAAA-MM-JJ (année-mois-jour).
-Pour séparer les deux dates, veuillez utiliser le caractère "/", sinon la date ne sera pas prise en compte.
+Cette option sert à savoir si vous voulez filtrer selon une date en particulier. <br />
+Cette option n'est pas obligatoire, si elle n'est pas renseignée il n'y aura pas de filtre selon la date. <br />
+Le format des dates est une chaine de caractère de la forme : AAAA-MM-JJ (année-mois-jour). <br />
+Pour séparer les deux dates, veuillez utiliser le caractère "/", sinon la date ne sera pas prise en compte. <br />
 
 ### TRIS
 
@@ -79,10 +79,10 @@ Les options de tris sont:
 	-R ou --abr
 	-L ou --avl
 
-Ces options servent à savoir si vous voulez trier d'une certaine manière.
-Ces options ne sont pas obligatoires, si aucune n'est renseignée le tri sera fait à l'aide d'un AVL.
-Seule une option de tri est possible à la fois.
-Si plusieurs options sont renseignées, la première selon l'ordre ci-dessus est prise en compte.
+Ces options servent à savoir si vous voulez trier d'une certaine manière. <br />
+Ces options ne sont pas obligatoires, si aucune n'est renseignée le tri sera fait à l'aide d'un AVL. <br />
+Seule une option de tri est possible à la fois. <br />
+Si plusieurs options sont renseignées, la première selon l'ordre ci-dessus est prise en compte. <br />
 
 ### FICHIER
 
@@ -90,8 +90,8 @@ L'option de fichier est:
 
 	-f<nom_fichier>
 	
-Cette option sert à connaître le nom du fichier d'entré pour que le script puisse acquérir toutes les données.
-Cette option est obligatoire pour que le script fonctionne.
+Cette option sert à connaître le nom du fichier d'entré pour que le script puisse acquérir toutes les données. <br />
+Cette option est obligatoire pour que le script fonctionne. <br />
 
 ### EXEMPLE DE LANCEMENT
 
