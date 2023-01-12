@@ -11,7 +11,8 @@
 7. [TRIS](#tris)
 8. [FICHIER](#fichier)
 9. [EXEMPLE DE LANCEMENT](#exemple-de-lancement)
-10. [CRÉATEURS](#créateurs)
+10. [ERREURS POSSIBLES](#erreurs-possibles)
+11. [CRÉATEURS](#créateurs)
 
 ## INFORMATIONS GÉNÉRALES
 
@@ -96,6 +97,7 @@ Cette option est obligatoire pour que le script fonctionne. <br />
 ### EXEMPLE DE LANCEMENT
 
 Exemple d'utilisation:
+
 ```bash
 $ bash projet.sh -fdata.csv -d2015-12-8/2016-5-25 -h -p1 -S --abr
 ```
@@ -111,6 +113,8 @@ $ bash projet.sh -fdata.csv -d2015-12-8/2016-5-25 -h -p1 -S --abr
 	-S : le script ne prend en compte que les données provenant de Saint-Pierre et Miquelon.
 	
 	--abr : le script fait le tri avec un ABR.
+
+## ERREURS POSSIBLES
 
 Le script retourne des valeurs différentes si l'exécution s'est bien déroulé:
 
