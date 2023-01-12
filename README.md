@@ -16,38 +16,87 @@ Pour lancer le programme:
 ```bash
   $ bash projet.sh
 ```
-### JOUABILITÉ
+Le script a besoin de plusieures options pour fonctionner. Vous pouvez les saisir dans l'odre que vous voulez.
+Les options possibles pour le script sont:
 
-Au lancement du jeu, vous devrez choisir la difficulté du jeu entre le niveau 1 et 3. Le niveau déterminera le temps que vous aurez pour jouer, 10 secondes pour le niveau 1, 7 secondes pour le niveau 2 et 5 secondes pour le niveau 3. Si vous dépassez le temps limite, l'orientation du tétromino puis la colonne sera choisie aléatoirement. Ce choix est fait grâce à la fonction suivante:
-```c
-  int difficulty();
-```
 
-ATTENTION: si vous sasissez une lettre à la place d'un chiffre, cela sera considéré comme une erreur majeure et mettra fin au programme
+Options de type de données:
 
-Vous devrez ensuite saisir la rotation du tétromino en saisissant une valeur entre 1 et 4 puis la colonne en saisissant une lettre entre A et J sur laquelle vous voulez le placer, sachant que l'origine du bloc est tout à gauche, le tout est fait grâce à la fonction:
-```c
-  void place(int tab[TAILLE][TAILLE], Tetromino* tetro, int score, int level);
-```
-Le bloc est enfin placer automatiquement dans le tableau, voici un aperçu du tétromino S placé dans la colonne B avec comme orientation 1:
+	-t pour la température
+	-p pour la pression atmosphérique
+	-w pour le vent
+	-h pour l'altitude
+	-m pour l'humidité
 
-![alt text](https://github.com/Auxifruit/tetris-projet/blob/image/GRID01.png "Exemple tableau")
+Ces options servent à savoir quelle type de données vous voulez traiter.
+Les options -t et -p doivent être accomapgné du mode 1, 2, 3.
+Au moins l'une de ces options doivent être présentes pour que le script fonctionne.
+Il n'y a pas de limite quand a l'utilisation de ces options.
+Vous pouvez demandez de traiter la température, le vent et l'altitude en une seule fois.
 
-Si une ligne est remplie entièrement, elle sera supprimée pour laisser place aux lignes au-dessus grâce à la fonction:
-```c
-  void linedelete(int tab[TAILLE][TAILLE], int n, int score);
-```
 
-Le but du jeu est donc de compléter le maximum de lignes pour augmenter son score, il y a game over quand une colonne est remplie entièrement.
+Les options de lieux:
 
-À la fin de la partie, le score du joueur est enregistré dans un fichier texte avec les scores des autres joueurs, grâce à la fonction:
-```c
-  void end_game(int score);
-```
+	-F pour la France
+	-G pour la Guyane
+	-S pour Saint-Pierre et Miquelon
+	-A pour les Antilles
+	-O pour l'océan Indien
+	-Q pour l'Antarctique
 
-Exemple ci-dessous:
+Ces options servent à savoir si vous voulez filtrer selon un lieux en particulier.
+Ces options ne sont pas obligatoires, si aucune n'est renseignée il n'y aura pas de filtre selon le lieux.
+Seule une option de lieux est possible à la fois.
+Si plusieurs options sont renseignées, la première selon l'ordre ci-dessus est prise en compte.
 
-![alt text](https://github.com/Auxifruit/tetris-projet/blob/image/GAME-OVER.png "Exemple game over")
+
+L'options de date:
+
+	-d<min><max>
+
+Cette option sert à savoir si vous voulez filtrer selon une date en particulier.
+Cette option n'est pas obligatoire, si elle n'est pas renseignée il n'y aura pas de filtre selon la date.
+Le format des dates est une chaine de caractère de la forme : AAAA-MM-JJ (année-mois-jour).
+Pour séparer les deux dates, veuillez utiliser le caractère "/", sinon la date ne sera pas prise en compte.
+
+
+Les options de tris:
+
+	-T ou --tab
+	-R ou --abr
+	-L ou --avl
+
+Ces options servent à savoir si vous voulez trier d'une certaine manière.
+Ces options ne sont pas obligatoires, si aucune n'est renseignée le tri sera fait à l'aide d'un AVL.
+Seule une option de tri est possible à la fois.
+Si plusieurs options sont renseignées, la première selon l'ordre ci-dessus est prise en compte.
+
+
+L'option de fichier:
+
+	-f<nom_fichier>
+	
+Cette option sert à connaître le nom du fichier d'entré pour que le script puisse acquérir toutes les données.
+Cette option est obligatoire pour que le script fonctionne.
+
+
+Exemple d'utilisation:
+
+$ bash projet.sh -fdata.csv -d2015-12-8/2016-5-25 -h -p1 -S --abr
+
+Le script utilise les données provenant du fichier data.csv.
+Il ne prend en compte que les données entre le 8-12-2015 et le 25-5-2016.
+Il traite les donneés de l'altitude.
+Il traite les donneés de la pression en mode 1.
+Il ne prend en compte que les données provenant de Saint-Pierre et Miquelon.
+Le tri se fait avec un ABR.
+
+
+Le script retourne des valeurs différentes si l'exécution s'est bien déroulé:
+
+	- 0: tout c'est bien passé
+	- 1: erreur argument
+	- 2: erreur sur le fichier d'entré
 
 ## CRÉATEURS
 
