@@ -10,7 +10,7 @@
 6. [DATE](#date)
 7. [TRIS](#tris)
 8. [FICHIER](#fichier)
-9. [EXEMPLE D'UTILISATION](#exemple-d'utilisation)
+9. [EXEMPLE D'UTILISATION](#exemple-d-utilisation)
 10. [CRÉATEURS](#créateurs)
 
 ## INFORMATIONS GÉNÉRALES
