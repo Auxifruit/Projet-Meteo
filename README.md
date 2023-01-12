@@ -99,11 +99,27 @@ Exemple d'utilisation:
 ```bash
 $ bash projet.sh -fdata.csv -d2015-12-8/2016-5-25 -h -p1 -S --abr
 ```
+>-f
 Le script utilise les données provenant du fichier data.csv. <br />
+```bash
+$ bash projet.sh -fdata.csv -d2015-12-8/2016-5-25 -h -p1 -S --abr
+```
 Il ne prend en compte que les données entre le 8-12-2015 et le 25-5-2016. <br />
+```bash
+$ bash projet.sh -fdata.csv -d2015-12-8/2016-5-25 -h -p1 -S --abr
+```
 Il traite les donneés de l'altitude. <br />
+```bash
+$ bash projet.sh -fdata.csv -d2015-12-8/2016-5-25 -h -p1 -S --abr
+```
 Il traite les donneés de la pression en mode 1. <br />
+```bash
+$ bash projet.sh -fdata.csv -d2015-12-8/2016-5-25 -h -p1 -S --abr
+```
 Il ne prend en compte que les données provenant de Saint-Pierre et Miquelon. <br />
+```bash
+$ bash projet.sh -fdata.csv -d2015-12-8/2016-5-25 -h -p1 -S --abr
+```
 Le tri se fait avec un ABR. <br />
 
 
