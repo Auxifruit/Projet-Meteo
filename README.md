@@ -5,7 +5,7 @@
 1. [INFORMATIONS GÉNÉRALES](#informations-générales)
 2. [UTILISATION](#utilisation)
 3. [OPTIONS](#options)
-4. [TYPES DE DONÉES](#types-de-données)
+4. [TYPE DE DONÉES](#type-de-données)
 5. [LIEUX](#lieux)
 6. [DATE](#date)
 7. [TRIS](#tris)
@@ -37,7 +37,7 @@ Les options de type de données sont:
 	-h pour l'altitude
 	-m pour l'humidité
 
-Ces options servent à savoir quelle type de données vous voulez traiter.
+Ces options servent à savoir quel type de données vous voulez traiter.
 Les options -t et -p doivent être accomapgné du mode 1, 2, 3.
 Au moins l'une de ces options doivent être présentes pour que le script fonctionne.
 Il n'y a pas de limite quand a l'utilisation de ces options.
