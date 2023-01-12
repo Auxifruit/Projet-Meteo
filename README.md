@@ -4,7 +4,14 @@
 ## Table des matières
 1. [INFORMATIONS GÉNÉRALES](#informations-générales)
 2. [UTILISATION](#utilisation)
-3. [CRÉATEURS](#créateurs)
+3. [OPTIONS](#utilisation)
+4. [TYPE DE DONÉES](#utilisation)
+5. [LIEUX](#utilisation)
+6. [DATE](#utilisation)
+7. [TRIS](#utilisation)
+8. [FICHIER](#utilisation)
+9. [EXEMPLE D'UTILISATION](#exemple-d'utilisation)
+10. [CRÉATEURS](#créateurs)
 
 ## INFORMATIONS GÉNÉRALES
 
@@ -20,7 +27,9 @@ Le script a besoin de plusieures options pour fonctionner. Vous pouvez les saisi
 Les options possibles pour le script sont:
 
 
-Options de type de données:
+# TYPE DE DONNÉES
+
+Les options de type de données sont:
 
 	-t pour la température
 	-p pour la pression atmosphérique
@@ -34,8 +43,9 @@ Au moins l'une de ces options doivent être présentes pour que le script foncti
 Il n'y a pas de limite quand a l'utilisation de ces options.
 Vous pouvez demandez de traiter la température, le vent et l'altitude en une seule fois.
 
+# LIEUX
 
-Les options de lieux:
+Les options de lieux sont:
 
 	-F pour la France
 	-G pour la Guyane
@@ -49,6 +59,7 @@ Ces options ne sont pas obligatoires, si aucune n'est renseignée il n'y aura pa
 Seule une option de lieux est possible à la fois.
 Si plusieurs options sont renseignées, la première selon l'ordre ci-dessus est prise en compte.
 
+# DATE
 
 L'options de date:
 
@@ -59,8 +70,9 @@ Cette option n'est pas obligatoire, si elle n'est pas renseignée il n'y aura pa
 Le format des dates est une chaine de caractère de la forme : AAAA-MM-JJ (année-mois-jour).
 Pour séparer les deux dates, veuillez utiliser le caractère "/", sinon la date ne sera pas prise en compte.
 
+# TRIS
 
-Les options de tris:
+Les options de tris sont:
 
 	-T ou --tab
 	-R ou --abr
@@ -71,14 +83,16 @@ Ces options ne sont pas obligatoires, si aucune n'est renseignée le tri sera fa
 Seule une option de tri est possible à la fois.
 Si plusieurs options sont renseignées, la première selon l'ordre ci-dessus est prise en compte.
 
+# FICHIER
 
-L'option de fichier:
+L'option de fichier est:
 
 	-f<nom_fichier>
 	
 Cette option sert à connaître le nom du fichier d'entré pour que le script puisse acquérir toutes les données.
 Cette option est obligatoire pour que le script fonctionne.
 
+# EXEMPLE D'UTILISATION
 
 Exemple d'utilisation:
 
