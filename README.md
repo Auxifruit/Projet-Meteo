@@ -10,19 +10,11 @@
 
 Le projet "nom du projet" permet depuis un fichier de données météo de les trier selon certaines conditions et de dessiner des graphiques. Le projet utiliser un script en shell et un programme en c.
 
-Voici à quoi ressemblera l'interface du jeu:
-
-![alt text](https://github.com/Auxifruit/tetris-projet/blob/image/GRID0.png "Exemple interface")
-
 ## UTILISATION
 
-Pour compiler le programme, mettez tous les fichiers du github dans un même répertoire. Ensuite, utiliser la commande:
-```c
-  $ make
-```
 Pour lancer le programme:
-```c
-  $ ./tetris
+```bash
+  $ bash projet.sh
 ```
 ### JOUABILITÉ
 
