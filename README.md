@@ -26,6 +26,7 @@ Pour lancer le programme:
 Le script a besoin de plusieures options pour fonctionner. Vous pouvez les saisir dans l'odre que vous voulez.
 Les options possibles pour le script sont:
 
+## OPTIONS
 
 ### TYPE DE DONNÉES
 
