@@ -10,7 +10,7 @@
 6. [DATE](#date)
 7. [TRIS](#tris)
 8. [FICHIER](#fichier)
-9. [EXEMPLE D'UTILISATION](#exemple-d-utilisation)
+9. [EXEMPLE DE LANCEMENT](#exemple-de-lancement)
 10. [CRÉATEURS](#créateurs)
 
 ## INFORMATIONS GÉNÉRALES
@@ -93,7 +93,7 @@ L'option de fichier est:
 Cette option sert à connaître le nom du fichier d'entré pour que le script puisse acquérir toutes les données.
 Cette option est obligatoire pour que le script fonctionne.
 
-### EXEMPLE D'UTILISATION
+### EXEMPLE DE LANCEMENT
 
 Exemple d'utilisation:
 ```bash
