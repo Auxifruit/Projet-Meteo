@@ -114,7 +114,7 @@ $ bash projet.sh -fdata.csv -d2015-12-8/2016-5-25 -h -p1 -S --abr
 	
 	--abr : le script fait le tri avec un ABR.
 
-## ERREURS POSSIBLES
+### ERREURS POSSIBLES
 
 Le script retourne des valeurs différentes si l'exécution s'est bien déroulé:
 
