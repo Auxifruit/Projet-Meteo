@@ -8,7 +8,7 @@
 4. [TYPE DE DONÉES](#type-de-données)
 5. [LIEUX](#lieux)
 6. [DATE](#date)
-7. [TRIS](#tris)
+7. [TRI](#tri)
 8. [FICHIER](#fichier)
 9. [EXEMPLE DE LANCEMENT](#exemple-de-lancement)
 10. [ERREURS POSSIBLES](#erreurs-possibles)
@@ -72,9 +72,9 @@ Cette option n'est pas obligatoire, si elle n'est pas renseignée il n'y aura pa
 Le format des dates est une chaine de caractère de la forme : AAAA-MM-JJ (année-mois-jour). <br />
 Pour séparer les deux dates, veuillez utiliser le caractère "/", sinon la date ne sera pas prise en compte. <br />
 
-### TRIS
+### TRI
 
-Les options de tris sont:
+Les options de tri sont:
 
 	-T ou --tab
 	-R ou --abr
