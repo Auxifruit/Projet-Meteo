@@ -4,12 +4,12 @@
 ## Table des matières
 1. [INFORMATIONS GÉNÉRALES](#informations-générales)
 2. [UTILISATION](#utilisation)
-3. [OPTIONS](#utilisation)
-4. [TYPE DE DONÉES](#utilisation)
-5. [LIEUX](#utilisation)
-6. [DATE](#utilisation)
-7. [TRIS](#utilisation)
-8. [FICHIER](#utilisation)
+3. [OPTIONS](#options)
+4. [TYPES DE DONÉES](#types-de-données)
+5. [LIEUX](#lieux)
+6. [DATE](#date)
+7. [TRIS](#tris)
+8. [FICHIER](#fichier)
 9. [EXEMPLE D'UTILISATION](#exemple-d'utilisation)
 10. [CRÉATEURS](#créateurs)
 
