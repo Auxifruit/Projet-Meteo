@@ -49,47 +49,47 @@ unset ARGUMENTS
 while true ; do # On analyse tous les arugments
     case "$1" in
         -T | --tab)
-            tab=1   # -T ou --tab est présent
+            tab=1
             shift
             ;;
         -R | --abr)
-            abr=1   # -R ou --abr est présent
+            abr=1
             shift
             ;;
         -L | --avl)
-            avl=1   # -L ou --avl est présent
+            avl=1
             shift
             ;;
         -d)
-            d=$2    # -d est présent et on récupère la date
+            d=$2      # -d est présent
             shift 2
             ;;
         -F)
-            F=1     # -F est présent
+            F=1             # -F est présent
             shift
             ;;
         -G)
-            G=1     # -G est présent
+            G=1             # -G est présent
             shift
             ;;
         -S)
-            S=1     # -S est présent
+            S=1             # -S est présent
             shift
             ;;
         -A)
-            A=1     # -A est présent
+            A=1             # -A est présent
             shift
             ;;
         -O)
-            O=1     # -O est présent
+            O=1             # -O est présent
             shift
             ;;
         -Q)
-            Q=1     # -Q est présent
+            Q=1             # -Q est présent
             shift
             ;;
         -t)
-            t=$2    # -t est présent et on récupère le mode
+            t=$2
             if [ "$t" -lt 1 ]  || [ "$t" -gt 3 ] ; then   # Vérification du mode pour la température
                 echo "Erreur: mode incorrect pour la température. Sasir t1, t2 ou t3 selon le mode voulu."  # Message d'erreur
                 echo -e "Référez-vous au --help si vous avez besoin d'aide.\n"
@@ -98,8 +98,8 @@ while true ; do # On analyse tous les arugments
             shift 2
             ;;
         -p)
-            p=$2    # -p est présent et on récupère le mode
-            if [ "$p" -lt 1 ]  || [ "$p" -gt 3 ] ; then   # Vérification du mode pour la pression atmosphérique
+            p=$2
+            if [ "$p" -lt 1 ]  || [ "$p" -gt 3 ] ; then   # Vérification du mode pour la température
                 echo "Erreur: mode incorrect pour la température. Sasir t1, t2 ou t3 selon le mode voulu."  # Message d'erreur
                 echo -e "Référez-vous au --help si vous avez besoin d'aide.\n"
                 exit 1
@@ -107,19 +107,19 @@ while true ; do # On analyse tous les arugments
             shift 2
             ;;
         -w)
-            w=1     # -w est présent
+            w=1             # -w est présent
             shift
             ;;
         -h)
-            h=1     # -h est présent
+            h=1             # -h est présent
             shift
             ;;
         -m)
-            m=1     # -m est présent
+            m=1             # -m est présent
             shift
             ;;
         -f)
-            f=$2    # -f est présent et on récupère le fichier
+            f=$2
             shift 2
             ;;
         --)
@@ -133,16 +133,21 @@ while true ; do # On analyse tous les arugments
     esac
 done
 
+#LC_NUMERIC="C" awk -F'[;,]' '$10 ~ /-[1-4][1-9]/' meteo_filtered_data_v1.csv > BRUH.txt
+#awk -F";" '{print $1}' | sort -n -u BRUH.txt > BRUH2.txt
+#echo "fichier crée"
+#exit 0
+
 # On test les arguments clés, c'est-à-dire -t, -p, -h ou -m
 
-if [ "$#" -gt 0 ] && ([ "$t" -eq 0 ] && [ "$p" -eq 0 ] && [ "$w" -eq 0 ] && [ "$h" -eq 0 ] && [ "$m" -eq 0 ]) ; then   # On vérifie qu'il y ait au moins un argument clé
+if [ "$#" -gt 0 ] && ([ "$t" -eq 0 ] && [ "$p" -eq 0 ] && [ "$w" -eq 0 ] && [ "$h" -eq 0 ] && [ "$m" -eq 0 ]) ; then   # On vérifie qu'on ait au moins un argument clé
     echo "Erreur: il manque un argument clé: -t, -p, -w, -h ou -m."     # Message d'erreur
     echo -e "Référez-vous au --help si vous avez besoin d'aide.\n"
     exit 1
 elif [ ! -e "$f" ] || [ ! -f "$f" ] ; then
     echo "Erreur: le ficher "$f" n'existe pas, veuillez en saisir un nouveau. N'oubliez pas son extension." # Message d'erreur
     echo -e "Référez-vous au --help si vous avez besoin d'aide.\n"
-    exit 2
+    exit 1
 fi
 
 
@@ -181,7 +186,7 @@ if [ -n "$d" ] ; then   # On vérifie si un filtrage selon la date est nécessai
         fi
     fi
 
-    echo "Filtre selon la date min et max."
+    echo "Tri selon la date min et max"
 
     # Trie selon la date min et max
 
@@ -225,7 +230,6 @@ if [ -n "$d" ] ; then   # On vérifie si un filtrage selon la date est nécessai
                                                                         }
                                                                     }
                                                                     }' "$f" >> filtre.c
-        echo -e "Le filtrage selon la date min et max a été effectué.\n"    # Message de validation
     else
         echo "Pas de tri selon une date min et max."
 fi
@@ -237,7 +241,6 @@ if [ -n "$d" ] ; then
 fi
         
 if [ -n "$F" ] ; then       # On vérifie si un filtrage selon le lieux, ici la France, est nécessaire
-    echo "Filtre selon le lieux."
     echo $(head -n1 "$f") > lieux.csv       # On insert la prémière ligne avec la signification de chaque colonne
     awk -F ";" '$15 ~ /[0-9][0-6][0-9][0-9][0-9]/' "$f" >> lieux.csv    # On prend en compte seulement les donneés provenant de France
     awk -F ";" '$15 ~ /[2][a-z][0-9][0-9][0-9]/' "$f" >> lieux.csv      # Et on ajoute les donneés provenant de Corse
@@ -246,7 +249,6 @@ if [ -n "$F" ] ; then       # On vérifie si un filtrage selon le lieux, ici la 
     echo -e "Le filtrage selon les données de France et de Corse a été effectué.\n"   # Message de validation
 
 elif [ -n "$G" ] ; then     # On vérifie si un filtrage selon le lieux, ici la Guyane, est nécessaire
-    echo "Filtre selon le lieux."
     echo $(head -n1 "$f") > lieux.csv   # On insert la prémière ligne avec la signification de chaque colonne
     awk -F ";" '$15 ~ /[9][7][3][0-9][0-9]/' "$f" >> lieux.csv   # On prend en compte seulement les donneés provenant de Guyane
     mv lieux.csv filtre.csv
@@ -254,7 +256,6 @@ elif [ -n "$G" ] ; then     # On vérifie si un filtrage selon le lieux, ici la 
     echo -e "Le filtrage selon les données de Guyane a été effectué.\n"   # Message de validation
 
 elif [ -n "$S" ] ; then     # On vérifie si un filtrage selon le lieux, ici Saint-Pierre et Miquelon, est nécessaire
-    echo "Filtre selon le lieux."
     echo $(head -n1 "$f") > lieux.csv   # On insert la prémière ligne avec la signification de chaque colonne
     awk -F ";" '$15 ~ /[9][7][5][0-9][0-9]/' "$f" >> lieux.csv   # On prend en compte seulement les donneés provenant de Saint-Pierre-et-Miquelon
     mv lieux.csv filtre.csv
@@ -262,7 +263,6 @@ elif [ -n "$S" ] ; then     # On vérifie si un filtrage selon le lieux, ici Sai
     echo -e "Le filtrage selon les données de Saint-Pierre et Miquelon a été effecuté.\n"   # Message de validation
 
 elif [ -n "$A" ] ; then     # On vérifie si un filtrage selon le lieux, ici les Antilles, est nécessaire
-    echo "Filtre selon le lieux."
     echo $(head -n1 "$f") > lieux.csv   # On insert la prémière ligne avec la signification de chaque colonne
     awk -F ";" '$15 ~ /[9][7][1,2,7,8][0-9][0-9]/' "$f" >> lieux.csv    # On prend en compte seulement les donneés provenant des Antilles
     mv lieux.csv filtre.csv
@@ -270,7 +270,6 @@ elif [ -n "$A" ] ; then     # On vérifie si un filtrage selon le lieux, ici les
     echo -e "Filtrage selon les données des Antilles effectué.\n"    # Message de validation
 
 elif [ -n "$O" ] ; then     # On vérifie si un filtrage selon le lieux, ici l'océan Indien, est nécessaire
-    echo "Filtre selon le lieux."
     echo $(head -n1 "$f") > lieux.csv   # On insert la prémière ligne avec la signification de chaque colonne
     LC_NUMERIC="C" awk -F'[;,]' '$10 ~ /-[1-4][1-9]/' meteo_filtered_data_v1.csv >> lieux.csv
     #awk -F ";" '$15 ~ /[9][8][4][1][0-3]/' "$f" >> lieux.csv    # On prend en compte seulement les donneés provenant des îles de l'océan Indien
@@ -279,14 +278,13 @@ elif [ -n "$O" ] ; then     # On vérifie si un filtrage selon le lieux, ici l'o
     echo -e "Le filtrage selon les données des îles de l'océan Indien a été effectué.\n"  # Message de validation
 
 elif [ -n "$Q" ] ; then     # On vérifie si un filtrage selon le lieux, ici l'Antarctique, est nécessaire
-    echo "Filtre selon le lieux."
     echo $(head -n1 "$f") > lieux.csv   # On insert la prémière ligne avec la signification de chaque colonne
     awk -F ";" '$10 ~ /^[-6][6]/' "$f" >> lieux.csv     # On prend en compte seulement les donneés provenant d'Antarctique
     mv lieux.csv filtre.csv
     f="filtre.csv"
     echo -e "Le filtrage selon les données d'Antarctique a été effectué.\n"   # Message de validation
 else
-    echo -e "Pas de filtrage selon le lieux.\n"
+    echo "Pas de filtrage selon la date et/ou le lieux."
     sleep 1
 fi
 
@@ -296,6 +294,7 @@ fi
 # Troisième filtrage: types de données
 
 echo "Filtre selon le/les types de données."
+sleep 1
 
 # Température
 
@@ -349,7 +348,7 @@ elif [ "$t" -eq 3 ] ; then
         {
             print $1, $2, $11
         }
-    }' > temperature3.txt   # On récupère l'ID de la station, la date et la température
+    }' > temperature3.txt
     echo -e "Le fichier sur la pression atmosphérique en mode 3 a été crée.\n"   # Message de validation 
     Tri_en_C temperature3.txt "$avl" "$abr" "$tab"
 fi
@@ -406,7 +405,7 @@ elif [ "$p" -eq 3 ] ; then
         {
             print $1, $2, $7
         }
-    }' > pression3.txt  # On récupère l'ID de la station, la date et la pression
+    }' > pression3.txt
     echo -e "Le fichier sur la pression atmosphérique en mode 3 a été crée.\n"   # Message de validation 
     Tri_en_C pression3.txt "$avl" "$abr" "$tab"
 fi
@@ -474,3 +473,9 @@ fi
 if [ -e "filtre.csv" ] ; then
     rm filtre.csv   # On suprrime le fichier temporaire qui a servi à filtrer le fichier principal
 fi
+END
+
+: <<'END'
+gcc Tri.c -o Tri
+./Tri temperature1.txt r
+END
