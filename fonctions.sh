@@ -17,12 +17,14 @@ Tri_en_C () {
     elif [ $3 -eq 1 ] ; then
         if [ -n "$4" ] ; then
             echo "$4"
+            # r = 1
         fi
         echo "Fonction tri liste chainée."
         # fonction_tab($1,r)
     else
         if [ -n "$4" ] ; then
             echo "$4"
+            # r = 1
         fi
         echo "Fonction tri AVL."
         # fonction_avl($1,r)
