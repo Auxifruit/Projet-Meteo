@@ -2,9 +2,10 @@
 
 . fonctions.sh  # On inclut un autre fichier .sh qui contient des fonctions
 
+
 # ----------------------------------------------------------------------------------------------------
 
-#:<< 'END'
+
 # On vérifie le nombre d'argument et le message d'aide
 
 if [ "$#" -eq 0 ] ; then    # On vérifie s'il n'y a aucun argument
@@ -132,11 +133,6 @@ while true ; do # On analyse tous les arugments
             ;;
     esac
 done
-
-#LC_NUMERIC="C" awk -F'[;,]' '$10 ~ /-[1-4][1-9]/' meteo_filtered_data_v1.csv > BRUH.txt
-#awk -F";" '{print $1}' | sort -n -u BRUH.txt > BRUH2.txt
-#echo "fichier crée"
-#exit 0
 
 # On test les arguments clés, c'est-à-dire -t, -p, -h ou -m
 
@@ -288,6 +284,7 @@ else
     sleep 1
 fi
 
+
 # ----------------------------------------------------------------------------------------------------
 
 
@@ -327,7 +324,7 @@ if [ "$t" -eq 1 ] ; then
     }
     END{for(ID in som) print ID, max[ID], min[ID], som[ID]/compt[ID]}' > temperature1.txt    # On récupère l'ID de la station, la température max, la température min et la température moyenne que l'on met dans un fichier.txt
     echo -e "Le fichier sur la température en mode 1 a été crée.\n"  # Message de validation
-    Tri_en_C temperature1.txt "$avl" "$abr" "$tab"
+    Tri_en_C temperature1.txt "$abr" "$tab"
 elif [ "$t" -eq 2 ] ; then
     tail -n+2 "$f" | awk -F";" 'BEGIN{OFS=FS}
     {
@@ -340,7 +337,7 @@ elif [ "$t" -eq 2 ] ; then
     }
     END{for(DATE in som) print DATE, som[DATE]/compt[DATE]}' > temperature2.txt
     echo -e "Le fichier sur la température en mode 2 a été crée.\n"   # Message de validation
-    Tri_en_C temperature2.txt "$avl" "$abr" "$tab"
+    Tri_en_C temperature2.txt "$abr" "$tab"
 elif [ "$t" -eq 3 ] ; then
     tail -n+2 "$f" | awk -F";" 'BEGIN{OFS=FS}
     {
@@ -350,7 +347,7 @@ elif [ "$t" -eq 3 ] ; then
         }
     }' > temperature3.txt
     echo -e "Le fichier sur la pression atmosphérique en mode 3 a été crée.\n"   # Message de validation 
-    Tri_en_C temperature3.txt "$avl" "$abr" "$tab"
+    Tri_en_C temperature3.txt "$abr" "$tab"
 fi
 
 # Pression atmosphérique
@@ -384,7 +381,7 @@ if [ "$p" -eq 1 ] ; then
     }
     END{for(ID in som) print ID, max[ID], min[ID], som[ID]/compt[ID]}' > pression1.txt    # On récupère l'ID de la station, la pression max, la pression min et la pression moyenne que l'on met dans un fichier.txt
     echo -e "Le fichier sur la pression atmosphérique en mode 1 a été crée.\n"   # Message de validation
-    Tri_en_C pression1.txt "$avl" "$abr" "$tab"
+    Tri_en_C pression1.txt "$abr" "$tab"
 elif [ "$p" -eq 2 ] ; then
     tail -n+2 "$f" | awk -F";" 'BEGIN{OFS=FS}
     {
@@ -397,7 +394,7 @@ elif [ "$p" -eq 2 ] ; then
     }
     END{for(DATE in som) print DATE, som[DATE]/compt[DATE]}' > pression2.txt
     echo -e "Le fichier sur la pression atmosphérique en mode 2 a été crée.\n"   # Message de validation
-    Tri_en_C pression2.txt "$avl" "$abr" "$tab"
+    Tri_en_C pression2.txt "$abr" "$tab"
 elif [ "$p" -eq 3 ] ; then
     tail -n+2 "$f" | awk -F";" 'BEGIN{OFS=FS}
     {
@@ -407,7 +404,7 @@ elif [ "$p" -eq 3 ] ; then
         }
     }' > pression3.txt
     echo -e "Le fichier sur la pression atmosphérique en mode 3 a été crée.\n"   # Message de validation 
-    Tri_en_C pression3.txt "$avl" "$abr" "$tab"
+    Tri_en_C pression3.txt "$abr" "$tab"
 fi
 
 # Vent
@@ -429,7 +426,7 @@ if [ "$w" -eq 1 ] ; then
     }
     END{for(ID in somDIRV) print ID, somDIRV[ID]/comptDIRV[ID], somVITV[ID]/comptVITV[ID], coor[ID]}' > vent.txt  # On récupère l'ID de la station, l'orientation moyenne des vents et la vitesse moyenne des vents que l'on met dans un fichier.tx
     echo -e "Le fichier sur le vent a été crée.\n"    # Message de validation
-    Tri_en_C vent.txt "$avl" "$abr" "$tab"
+    Tri_en_C vent.txt "$abr" "$tab"
 fi
 
 # Altitude
@@ -445,7 +442,7 @@ if [ "$h" -eq 1 ] ; then
     }
     END{for(ID in alt) print ID, alt[ID], coor[ID]}' > altitude.txt   # On récupère l'ID de la station, l'altitude et les coordonnées que l'on met dans un fichier.txt
     echo -e "Le fichier sur l'altitude a été crée.\n"    # Message de validation
-    Tri_en_C altitude.txt "$avl" "$abr" "$tab"
+    Tri_en_C altitude.txt "$abr" "$tab"
 fi
 
 # Humidité
@@ -467,14 +464,9 @@ if [ "$m" -eq 1 ] ; then
     }
     END{for(ID in max) print ID, max[ID], coor[ID]}' > humidite.txt     # On récupère l'ID de la station, l'humidité et les coordonnées que l'on met dans un fichier.txt
     echo -e "Le fichier sur l'humidite a été crée.\n"    # Message de validation
-    Tri_en_C humidite.txt "$avl" "$abr" "$tab"
+    Tri_en_C humidite.txt "$abr" "$tab"
 fi
 
 if [ -e "filtre.csv" ] ; then
     rm filtre.csv   # On suprrime le fichier temporaire qui a servi à filtrer le fichier principal
 fi
-
-: <<'END'
-gcc Tri.c -o Tri
-./Tri temperature1.txt r
-END
