@@ -473,7 +473,6 @@ fi
 if [ -e "filtre.csv" ] ; then
     rm filtre.csv   # On suprrime le fichier temporaire qui a servi à filtrer le fichier principal
 fi
-END
 
 : <<'END'
 gcc Tri.c -o Tri
