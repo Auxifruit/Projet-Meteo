@@ -442,7 +442,7 @@ if [ "$h" -eq 1 ] ; then
     }
     END{for(ID in alt) print ID, alt[ID], coor[ID]}' > altitude.txt   # On récupère l'ID de la station, l'altitude et les coordonnées que l'on met dans un fichier.txt
     echo -e "Le fichier sur l'altitude a été crée.\n"    # Message de validation
-    Tri_en_C altitude.txt "$abr" "$tab"
+    Tri_en_C altitude.txt "$abr" "$tab" r
 fi
 
 # Humidité
@@ -464,7 +464,7 @@ if [ "$m" -eq 1 ] ; then
     }
     END{for(ID in max) print ID, max[ID], coor[ID]}' > humidite.txt     # On récupère l'ID de la station, l'humidité et les coordonnées que l'on met dans un fichier.txt
     echo -e "Le fichier sur l'humidite a été crée.\n"    # Message de validation
-    Tri_en_C humidite.txt "$abr" "$tab"
+    Tri_en_C humidite.txt "$abr" "$tab" r
 fi
 
 if [ -e "filtre.csv" ] ; then
