@@ -468,5 +468,5 @@ if [ "$m" -eq 1 ] ; then
 fi
 
 if [ -e "filtre.csv" ] ; then
-    rm filtre.csv   # On suprrime le fichier temporaire qui a servi à filtrer le fichier principal
+    rm filtre.csv   # On supprime le fichier temporaire qui a servi à filtrer le fichier principal
 fi
