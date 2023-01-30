@@ -1,19 +1,20 @@
 CC=gcc
-SRC=$(wildcard *.c)
-OBJ=$(SRC:.c=.o)
-BUILD_DIR=build
-OBJ2=$(addprefix $(BUILD_DIR)/, $(OBJ))
 
-all: $(BUILD_DIR)/hello
+SRC=src
+OBJ=obj
 
-$(BUILD_DIR)/%.o : %.c $(BUILD_DIR)
-	$(CC) -c $< -o $@
+SRCS=$(wildcard $(SRC)/*.c)
+HEADS=$(wildcard $(SRC)/*.h)
+OBJS=$(SRCS:.c=.o)
 
-$(BUILD_DIR)/hello: $(OBJ2)
+BIN_DIR=bin
+BIN=$(BIN_DIR)/test
+
+all:$(BIN)
+
+$(BIN): $(OBJS)
 	$(CC) $^ -o $@
 
-$(BUILD_DIR):
-	mkdir -p $(BUILD_DIR)/
+$(OBJ)/%.o: $(SRC)/*.c
+	$(CC) -c $< -o $@
 
-clean:
-	rm -f $(BUILD_DIR)/*.o
