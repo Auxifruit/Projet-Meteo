@@ -12,5 +12,9 @@ Mis en page: Guillaume Barré
 Planning de réalisation:
 
 Pendant les vacances de noël nous avons commencé le projet en se répartissant les différentes tâches à réaliser. À la rentrée, nous avons mis en commun nos travaux et nous avons continué à travailler sur les points qui nous posaient problème.
+Il y a eu une période où nous n'avions pas avancé sur le projet à cause des partiels de janvier mais nous avons repri après les avoir passés.
 
 Limitations fonctionnelles:
+
+Utiliser "/" pour séparer les deux dates.
+Utilisation d'un mode à la fois pour la température et la pression. C'est-à-dire qu'on ne peut pas faire par exemple: -t1 et -t2 en dans la même execution. Le dernier mode rentrer sera pris en compte.
