@@ -1,20 +1,32 @@
+# Variable pour la compilation
+
 CC=gcc
+
+# Variable pour le nom des dossiers
 
 SRC=src
 OBJ=obj
 
+# Recherche des fichiers .c .h
+
 SRCS=$(wildcard $(SRC)/*.c)
 HEADS=$(wildcard $(SRC)/*.h)
+
+# Substitution des .c en .o
+
 OBJS=$(SRCS:.c=.o)
 
-BIN_DIR=bin
-BIN=$(BIN_DIR)/test
+# Dossier pour l'executable
 
-all:$(BIN)
+#EXEC_DIR=exec
+#EXEC=$(EXEC_DIR)/test
 
-$(BIN): $(OBJS)
+# Debut du make
+
+all:test
+
+test: $(OBJS)
 	$(CC) $^ -o $@
 
 $(OBJ)/%.o: $(SRC)/*.c
 	$(CC) -c $< -o $@
-
