@@ -1,0 +1,16 @@
+Projet météo
+
+Répartition des tâches:
+
+Programme en shell: Guillaume Barré
+Programme en C: Lucas Bezamat
+Gnuplot: Lucas Bezamat
+Commentaires: Guillaume Barré / Lucas Bezamat
+Makefile: Guillaume Barré
+Mis en page: Guillaume Barré
+
+Planning de réalisation:
+
+Pendant les vacances de noël nous avons commencé le projet en se répartissant les différentes tâches à réaliser. À la rentrée, nous avons mis en commun nos travaux et nous avons continué à travailler sur les points qui nous posaient problème.
+
+Limitations fonctionnelles:
