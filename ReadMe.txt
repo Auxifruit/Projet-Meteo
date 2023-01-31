@@ -8,7 +8,7 @@ Le projet "nom du projet" permet depuis un fichier de données météo de les tr
 
 Pour lancer le programme:
 
-  $ bash projet.sh
+  $ bash projet.sh <options>
 
 Le script a besoin de plusieures options pour fonctionner. Vous pouvez les saisir dans l'odre que vous voulez.
 Les options possibles pour le script sont:
