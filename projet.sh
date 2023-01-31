@@ -21,7 +21,22 @@ fi
 # ----------------------------------------------------------------------------------------------------
 
 
-# Initialisation des arguments de donnés clés
+# On vérifie si l'exécutable du programme en c est présent
+
+if [ ! -e test ] ; then   # S'il n'est pas présent
+    echo "L'executable n'est pas présent: compilation en cours."
+    sleep 1
+    make
+    echo "L'executable a été crée."
+    sleep 1.5
+    clear
+fi
+
+
+# ----------------------------------------------------------------------------------------------------
+
+
+# On initialisation des arguments de donnés clés
 
 t=0     # Argument de la température initialisé à 0
 p=0     # Argument de la pression atmosphérique initialisé à 0
@@ -30,7 +45,7 @@ h=0     # Argument de l'altitude initialisé à 0
 m=0     # Argument de l'humidité initialisé à 0
 f=0     # Argument du fichier initialisé à 0
 
-# Initialisation des arguments de tris
+# On initialisation des arguments de tris
 
 tab=0   # Argument du tri avec tab
 abr=0   # Argument du tri avec avl
@@ -91,7 +106,7 @@ while true ; do # On analyse tous les arugments
             ;;
         -t)
             t=$2
-            if [ "$t" -lt 1 ]  || [ "$t" -gt 3 ] ; then   # Vérification du mode pour la température
+            if [ "$t" -lt 1 ]  || [ "$t" -gt 3 ] ; then   # On vérifie le mode pour la température
                 echo "Erreur: mode incorrect pour la température. Sasir t1, t2 ou t3 selon le mode voulu."  # Message d'erreur
                 echo -e "Référez-vous au --help si vous avez besoin d'aide.\n"
                 exit 1
@@ -100,7 +115,7 @@ while true ; do # On analyse tous les arugments
             ;;
         -p)
             p=$2
-            if [ "$p" -lt 1 ]  || [ "$p" -gt 3 ] ; then   # Vérification du mode pour la température
+            if [ "$p" -lt 1 ]  || [ "$p" -gt 3 ] ; then   # On vérifie le mode pour la température
                 echo "Erreur: mode incorrect pour la température. Sasir t1, t2 ou t3 selon le mode voulu."  # Message d'erreur
                 echo -e "Référez-vous au --help si vous avez besoin d'aide.\n"
                 exit 1
@@ -432,15 +447,16 @@ fi
 # Altitude
 
 if [ "$h" -eq 1 ] ; then
-    tail -n+2 "$f" | LC_NUMERIC="C" awk -F ";" 'BEGIN{OFS=FS}
+    tail -n+2 "$f" | LC_NUMERIC="C" awk -F'[;,]' '
     {
-        ID=$1; H=$14; CO=$10
+        ID=$1; H=$15; LAT=$10; LONG=$11
     }
     !(ID in alt) {
         alt[ID]=H
-        coor[ID]=CO
+        lat[ID]=LAT
+        long[ID]=LONG
     }
-    END{for(ID in alt) print ID, alt[ID], coor[ID]}' > altitude.txt   # On récupère l'ID de la station, l'altitude et les coordonnées que l'on met dans un fichier.txt
+    END{for(ID in alt) print long[ID], lat[ID], alt[ID]}' > altitude.txt   # On récupère l'ID de la station, l'altitude et les coordonnées que l'on met dans un fichier.txt
     echo -e "Le fichier sur l'altitude a été crée.\n"    # Message de validation
     Tri_en_C altitude.txt "$abr" "$tab" r
 fi
@@ -467,6 +483,6 @@ if [ "$m" -eq 1 ] ; then
     Tri_en_C humidite.txt "$abr" "$tab" r
 fi
 
-if [ -e "filtre.csv" ] ; then
-    rm filtre.csv   # On supprime le fichier temporaire qui a servi à filtrer le fichier principal
+if [ -e "filtre.csv" ] ; then   # On vérifie si on a utilisé un fichier temporaire pour le filtrage
+    rm filtre.csv   # On suprrime le fichier temporaire qui a servi à filtrer le fichier principal
 fi
