@@ -27,6 +27,8 @@ Les options de type de données sont:
 
 Ces options servent à savoir quel type de données vous voulez traiter. <br />
 Les options -t et -p doivent être accomapgné du mode 1, 2, 3. <br />
+Un seul mode pour la température peut être exécuté. On peut pas faire -t1 et -t2 dans la même exécution. <br />
+Le dernier mode sera pris en compte. <br />
 Au moins l'une de ces options doivent être présentes pour que le script fonctionne. <br />
 Il n'y a pas de limite quant à l'utilisation de ces options. <br />
 Vous pouvez demandez de traiter la température, le vent et l'altitude en une seule fois. <br />
