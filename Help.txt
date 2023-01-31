@@ -1,0 +1,39 @@
+Les options possibles pour le script sont:
+
+Options de type de données:
+	-t pour la température
+	-p pour la pression atmosphérique
+	-w pour le vent
+	-h pour l'altitude
+	-m pour l'humidité
+Les options -t et -p doivent être accomapgné du mode 1, 2, 3.
+Au moins l'une de ces options doivent être présentes pour que le script fonctionne.
+
+Les options de lieux:
+	-F pour la France
+	-G pour la Guyane
+	-S pour Saint-Pierre et Miquelon
+	-A pour les Antilles
+	-O pour l'océan Indien
+	-Q pour l'Antarctique
+Ces options ne sont pas obligatoires, si aucune n'est renseignée il n'y aura pas de filtre selon le lieux.
+Seule une option de lieux est possible à la fois.
+
+L'options de date:
+	-d<min><max>
+Cette option n'est pas obligatoire, si elle n'est pas renseignée il n'y aura pas de filtre selon la date.
+Le format des dates est une chaine de caractère de la forme : AAAA-MM-JJ (année-mois-jour).
+Pour séparer les deux dates, veuillez utiliser le caractère "/", sinon la date ne sera pas prise en compte.
+
+Les options de tris:
+	-T ou --tab
+	-R ou --abr
+	-L ou --avl
+Ces options ne sont pas obligatoires, si aucune n'est renseignée le tri sera fait à l'aide d'un AVL.
+Seule une option de tri est possible à la fois.
+
+L'option de fichier:
+	-f<nom_fichier>
+Cette option est obligatoire pour que le script fonctionne.
+
+Pour plus de détails, référez-vous au readme.
