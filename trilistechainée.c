@@ -6,8 +6,7 @@
 typedef struct liste {
     float x;
     float y; 
-    int altitude ;
-    float humidité ; 
+    float data ;  
     float max  ;
     float moy ; 
     float min ; 
@@ -23,50 +22,42 @@ typedef struct liste {
 
 typedef Liste* pListe ; 
 
-pListe creationChainon( float x ,float y, float data  ,float max  ,float moy  , float min  , float longitude ,float latitude , int jour ,int heure ,int mois  , int annee , int numstation )
+pListe creationChainon( float x ,float y, float data  ,float max  ,float moy  , float min  , float longitude ,float latitude  ,int heure , int jour,int mois  , int annee , int numstation )
 {
  pListe noeud = malloc(sizeof(Pliste)); // creation d'un nouveau noeud
     if(noeud == NULL) { // verification allocation
         exit(1); // si problème
     }
-     noeud->x = x ; 
-     noeud->y =y; 
-      noeud->data = data ;
-       
-       noeud->max = max  ;
-       noeud->moy = moy; 
-      noeud->min  = min; 
-     noeud->longitude  = longitude; 
-      noeud->latitude = latitude; 
-      noeud->jour = jour; 
-      noeud->heure = heure ;
-      noeud->mois = mois ; 
-     noeud->annee  = annee;
-      noeud->numstation = numstation;
+    noeud->x = x ; 
+    noeud->y =y; 
+    noeud->data = data ;
+    noeud->max = max  ;
+    noeud->moy = moy; 
+    noeud->min  = min; 
+    noeud->longitude  = longitude; 
+    noeud->latitude = latitude; 
+    noeud->jour = jour; 
+    noeud->heure = heure ;
+    noeud->mois = mois ; 
+    noeud->annee  = annee;
+    noeud->numstation = numstation;
 
 return noeud ; 
 }
 
-pListe insertdebut( pListe N , float x ,float y  ,float data,float max  ,float moy  , float min  , float longitude ,float latitude , int jour ,int heure ,int mois  , int annee , int numstation )
-{
-pListe k =  creationChainon (x , y , altitude ,humidité , max  , moy  ,  min  ,  longitude , latitude ,  jour , heure , mois  ,  annee ,  numstation )
-k ->suivant =N ; 
-
-return k;
-}
 
 
-insertionliste ( pListe N , float x ,float y  ,float data,float max  ,float moy  , float min  , float longitude ,float latitude , int jour ,int heure ,int mois  , int annee , int numstation )
+insertionliste ( pListe N , float x ,float y  ,float data,float max  ,float moy  , float min  , float longitude ,float latitude  ,int heure , int jour,int mois  , int annee , int numstation )
 {
      if (N==NULL )
 {
-     return creationChainon (x , y , altitude ,humidité , max  , moy  ,  min  ,  longitude , latitude ,  jour , heure , mois  ,  annee ,  numstation );
+     return creationChainon (x , y , data, max  , moy  ,  min  ,  longitude , latitude  , heure,  jour , mois  ,  annee ,  numstation );
 // on retourne le chainon car la liste est vide
 }
 else 
 {
     pListe z = N ; 
-    pListe k = creationChainon (x , y , altitude ,humidité , max  , moy  ,  min  ,  longitude , latitude ,  jour , heure , mois  ,  annee ,  numstation );
+    pListe k = creationChainon (x , y , data , max  , moy  ,  min  ,  longitude , latitude , heure,  jour  , mois  ,  annee ,  numstation );
   while (z->suivant != NULL)
    {
     if ( k == z)
@@ -408,7 +399,7 @@ pListe  sortedMerge(pListe a, pListe  b)
     pListe result = NULL;
  
     // sélectionne `a` ou `b`, et se reproduit
-    if (datemin (a->heure  , a->jour , a->mois, a->annee ,b->heure  ,b->jour , b->mois ,b->annee ,) == 0 || (datemin (a->heure  , a->jour , a->mois, a->annee ,b->heure  ,b->jour , b->mois ,b->annee ,) == 22  )
+    if (datemin (a->heure  , a->jour , a->mois, a->annee ,b->heure  ,b->jour , b->mois ,b->annee ,) == 0 || datemin (a->heure  , a->jour , a->mois, a->annee ,b->heure  ,b->jour , b->mois ,b->annee ,) == 22  )
     // si la date de a est plus  petite ou egale alors 
     {
         result = a;
@@ -514,7 +505,7 @@ while (fscanf(m ,"%d;%f;%f,%f\n " , &numstation , &data , &lat , &longi )!=EOF)
 {
 
 
-z=insertionliste(z ,data, numstation , longi  ,lat);
+z=insertionliste( z, 0 , 0 ,  data  , 0  ,0 , 0 , longi ,lat , 0  , 0  ,0 , 0, numstation);
 }
 mergesort(&z) ; 
 if (r== 1)
@@ -545,11 +536,11 @@ FILE *w= fopen("w.csv","r");
 FILE *w2= fopen("w.txt","w"); 
 
 
-while (fscanf(w ,"%d;%f;%f;%f,%f\n" , &numstation , &data ,  &angle , &lat , &longi )!=EOF)
+while (fscanf(w ,"%d;%f;%f;%f,%f\n" , &numstation , &data ,  &angle  , &longi, &lat )!=EOF)
 {
 x=cosf (angle) ;
 y=sinf (angle);
-z=insertionliste(z ,data, numstation , longi  ,lat, x , y);
+z=insertionliste( z, x, y,  data  , 0  ,0 , 0 , longi ,lat, 0 , 0 ,0 , 0, numstation);
 }
 
 mergesort(&z) ; 
@@ -574,7 +565,7 @@ while (fscanf(ALT ,"%d;%f,%f;%f\n " , &numstation , &longi , &lat , &data )!=EOF
 {
 
 
-z=insertionliste(z , data, numstation , longi  ,lat);
+z=insertionliste( z, 0 , 0 ,  data  , 0  ,0 , 0 , longi , lat, 0 , 0  ,0 , 0  , numstation);
 
 }
 
@@ -609,7 +600,7 @@ FILE *t2= fopen("t2.txt","w");
 while (fscanf(t ,"%d;%f;%f;%f" , &numstation , &max ,&moy , &min  )!=EOF)
 {
 
-z=insertionliste(z , numstation , max , moy , min  );
+z=insertionliste( z, 0 , 0 ,  0  , max  , moy, min , 0 ,0 , 0 , 0  ,0 , 0 , numstation);
 }
 mergesortnumst(&z) ; 
 parcourstemp1 (z ,t2  );
@@ -636,7 +627,7 @@ FILE *t2= fopen("t2.txt","w");
 while (fscanf(t ,"%d-%d-%dT%d:%s;%f\n" , &annee , &jour , &mois , &heure , &poubelle ,&data )!=EOF)
 {
 
-z=insertionliste(z, data , annee , jour , mois , heure , numstation);
+z=insertionlistez(z, 0 , 0 ,  data  , 0  ,0 , 0 , 0 ,0 , heure  , jour  ,mois  , annee , 0);
 }
 mergesortdate(&z); 
 parcourstemp2 ( z, t2 );
@@ -670,7 +661,7 @@ FILE *t2= fopen("t3.txt","w");
 
 while (fscanf(t ,"%f,%d-%d-%dT%d:%d:%d+%d:%d,%f ", &numstation , &annee ,&mois , &jour ,&heure ,&poubelle , &poubelle , &poubelle , &poubelle ,&data ) !=EOF)
 {
-z=insertionliste(z ,data ,  heure, jour , mois , annee , numstation  );
+z=insertionliste( z, 0 , 0 ,  data  , 0  ,0 , 0 , 0 ,0 , heure  , jour  ,mois  , annee , numstation);
 
 }  
 mergesortdate(&z);
