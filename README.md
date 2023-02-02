@@ -127,4 +127,4 @@ Le script retourne des valeurs différentes si l'exécution s'est bien déroulé
 
 ## CRÉATEURS
 
-Binôme composé Guillaume BARRÉ(aka Auxifruit) et Lucas BEZAMAT(aka Luczerty) en PRÉING 2 MI GROUPE 4
+Binôme composé de Guillaume BARRÉ(aka Auxifruit) et Lucas BEZAMAT(aka Luczerty) en PRÉING 2 MI GROUPE 4
