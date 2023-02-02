@@ -30,7 +30,7 @@ typedef Vect* pVect;
 typedef struct temp{
     float data;
     int jour; 
-    int heure;
+    int heure;c
     int mois ; 
     int annee ;
     int numstation ;
@@ -330,6 +330,16 @@ void parcoursvect (pVect z , FILE* f)
 	}	 
 }
 
+void parcoursvectr (pVect z , FILE* f)
+{
+	if(z!= NULL) 
+	{
+    parcoursvectr(z->fd,f); // on regarde dans le fils droit
+    fprintf (f, "%f %f %f %f %d\n", z->longitutude , z->lat , z->x , z->y , z->data );  
+	parcoursvectr(z->fg, f); // on regarde dans le fils gauche  
+	}	 
+}
+
 
 
 void parcoursT3 (  pTemp a , FILE* f  , int *heure , int* jour , int* mois , int *annee  )
@@ -359,6 +369,30 @@ fprintf (f , "%f ", a->data );
  }
  
 
+void parcoursT3r (  pTemp a , FILE* f  , int *heure , int* jour , int* mois , int *annee  )
+{
+if (a!=NULL) 
+{
+    
+parcoursT3r ( a->fd , f  , heure , jour , mois ,annee); 
+ 
+ if (datedifferente(  *heure , *jour , *mois , *annee,  a->heure, a->jour ,a->mois , a->annee ) ==0 ) 
+{
+
+ fprintf (f, "\n%d/%d/%d/%d ", a->heure , a->jour ,a->mois , a->annee );
+ *jour = a->jour;
+ *heure = a->heure ; 
+ *mois  = a->mois ; 
+ *annee = a->annee;
+}
+ if (datedifferente(  *heure , *jour , *mois , *annee,  a->heure, a->jour ,a->mois , a->annee ) ==1);
+{
+fprintf (f , "%f ", a->data );
+
+}
+ parcoursT3r ( a->fg , f  , heure , jour , mois , annee);
+ } 
+ }
 
 void parcourstemp1(pTemp1 z , FILE* f)
 {
@@ -368,6 +402,17 @@ void parcourstemp1(pTemp1 z , FILE* f)
 	parcourstemp1(z->fg, f); // on regarde dans le fils gauche 
 	fprintf (f, "%d %f %f %f\n", z->numstation , z->max ,  z->moy ,  z->min);  
 	parcourstemp1(z->fd,f); // on regarde dans le fils droit
+	}	 
+} 
+
+void parcourstemp1r(pTemp1 z , FILE* f)
+{
+	if(z!= NULL) 
+	{ 
+	parcourstemp1r(z->fd,f); // on regarde dans le fils droit
+	
+	fprintf (f, "%d %f %f %f\n", z->numstation , z->max ,  z->moy ,  z->min);  
+	parcourstemp1r(z->fg, f); // on regarde dans le fils gauche 
 	}	 
 } 
 
@@ -382,7 +427,88 @@ void parcourstemp2(pTemp z , FILE* f)
 	}	 
 }
 
-void humiditédata (int r)
+
+void parcourstemp2r(pTemp z , FILE* f)
+{
+	if(z!= NULL) 
+	{ 
+	
+	parcourstemp2r(z->fd,f); // on regarde dans le fils droit
+	fprintf (f, "%d %d %d %d %f \n",  z->heure , z->jour , z->mois , z->annee, z->data );  
+	parcourstemp2r(z->fg, f); // on regarde dans le fils gauche 
+	}	 
+}
+
+///////////////////////////////////////////////////////////////////////////////supression ///////////////////////////////////////////////////////////////////////////////
+
+void suppresionabr( pArbre z )
+{
+    pArbre a  = z->fg ; 
+    pArbre b = z->fd ;
+    free (z) ;
+    if (a!= NULL)
+    {
+        suppresionabr(a) ; 
+    }
+    
+    if (b!= NULL)
+    {
+        suppresionabr(a) ; 
+    }
+}
+
+
+void suppresionvect( pVect z )
+{
+    pVect a  = z->fg ; 
+    pVect b = z->fd ;
+    free (z) ;
+    if (a!= NULL)
+    {
+        suppresionvect(a) ; 
+    }
+    
+    if (b!= NULL)
+    {
+        suppresionvect(a) ; 
+    }
+}
+
+void suppresiontemp1( pTemp1 z )
+{
+    pTemp1 a  = z->fg ; 
+    pTemp1 b = z->fd ;
+    free (z) ;
+    if (a!= NULL)
+    {
+        suppresiontemp1(a) ; 
+    }
+    
+    if (b!= NULL)
+    {
+        suppresiontemp1(a) ; 
+    }
+}
+
+void suppresiontemp( pTemp z )
+{
+    pTemp a  = z->fg ; 
+    pTemp b = z->fd ;
+    free (z) ;
+    if (a!= NULL)
+    {
+        suppresiontemp(a) ; 
+    }
+    
+    if (b!= NULL)
+    {
+        suppresiontemp(a) ; 
+    }
+}
+
+
+//////////////////////////////////////////////////////////////////////////////// fonction par option ///////////////////////////////////////////////////////////////////
+void humiditédata (int r , char entreefichier [20] , char sortiefichier[20])
 {
 pArbre z= NULL;
 int x;
@@ -406,13 +532,15 @@ else
 {
 parcoursr(z , m2);
 }
+
+suppresionabr( pAbr z )
 fclose(m2);
 
 fclose(m);
 }
 
 
-void  vent()
+void  vent(int r , char entreefichier [20] , char sortiefichier[20])
 {
 pVect z= NULL;
 
@@ -434,12 +562,18 @@ y=sinf (angle);
 z=insertionABRvect(z ,nouvelleval, numstation , longi  ,lat, x , y);
 }
 
+if (r== 1)
 parcoursvect(z , w2);
+else 
+{
+parcoursvectr(z , w2);
+}
+suppresionvect(z);
 fclose(w2);
 fclose(w);
 }
 
-void altitudedata(int r ) 
+void altitudedata(int r , char entreefichier [20] , char sortiefichier[20] ) 
 {
 
 
@@ -448,8 +582,8 @@ int numstation;
 int alt;
 float longi;
 float lat ;
-FILE *ALT= fopen("altitude.csv","r");
-FILE *h= fopen("h.txt","w");
+FILE *ALT= fopen(entreefichier,"r");
+FILE *h= fopen(sortiefichier,"w");
 while (fscanf(ALT ,"%d;%f,%f;%d\n " , &numstation , &longi , &lat , &alt )!=EOF)
 {
 
@@ -463,13 +597,15 @@ parcours(z , h);
  }
  else 
  {
-    parcoursr(z , h ) ;
+parcoursr(z , h ) ;
  }
+
+ suppresionabr(z);
 fclose(ALT);
 fclose(h);
 }
 
-void  t1()
+void  t1(int r , char entreefichier [20] , char sortiefichier[20])
 {
 pTemp1 z= NULL;
 
@@ -478,8 +614,8 @@ float max ;
 float moy  ;
 int numstation; 
 
-FILE *t= fopen("t2.csv","r");
-FILE *t2= fopen("t2.txt","w"); 
+FILE *t= fopen(entreefichier,"r");
+FILE *t2= fopen(sortiefichier,"w"); 
 
 
 while (fscanf(t ,"%d;%f;%f;%f" , &numstation , &max ,&moy , &min  )!=EOF)
@@ -487,13 +623,22 @@ while (fscanf(t ,"%d;%f;%f;%f" , &numstation , &max ,&moy , &min  )!=EOF)
 
 z=insertionTemp1(z , numstation , max , moy , min  );
 }
-parcourstemp1 (z ,t2  );
-fclose(t) ; 
+ if (r==1) 
+ {
+parcourstemp1(z , t2 );
+ }
+ else 
+ {
+parcourstemp1r(z , t2 );
+ }
+ suppresiontemp1 (z);
+ 
+ fclose(t) ; 
 fclose(t2) ; 
 
 }
 
-void  t2()
+void  t2(int r , char entreefichier [20] , char sortiefichier[20])
 {
 pTemp z= NULL;
 float numstation = 0; 
@@ -503,8 +648,8 @@ int heure;
 int annee ; 
 int mois;
 int   poubelle;
-FILE *t= fopen("t2.csv","r");
-FILE *t2= fopen("t2.txt","w"); 
+FILE *t= fopen(entreefichier,"r");
+FILE *t2= fopen(sortiefichier,"w"); 
 
 
 while (fscanf(t ,"%d-%d-%dT%d:%d:%d+%d:%d;%f" , &annee , &jour , &mois , &heure ,&poubelle , &poubelle , &poubelle , &poubelle  ,&nouvelleval )!=EOF)
@@ -512,13 +657,23 @@ while (fscanf(t ,"%d-%d-%dT%d:%d:%d+%d:%d;%f" , &annee , &jour , &mois , &heure 
 
 z=insertiontemp2(z, nouvelleval , annee , jour , mois , heure , numstation);
 }
+
+if (r==1) 
+ {
 parcourstemp2 ( z, t2 );
+
+ }
+ else 
+ {
+parcourstemp2r( z, t2 );
+ }
+suppresiontemp(z);
 fclose(t) ; 
 fclose(t2) ; 
 
 }
 
-void  t3()
+void  t3(int r , char entreefichier [20] , char sortiefichier[20])
 {
 pTemp z= NULL;
     float data;
@@ -536,8 +691,8 @@ pTemp z= NULL;
    c=-3;
     d=-4;
 int poubelle;
-FILE *t= fopen("t3.csv","r");
-FILE *t2= fopen("t3.txt","w"); 
+FILE *t= fopen(entreefichier,"r");
+FILE *t2= fopen(sortiefichier,"w"); 
 
 
 while (fscanf(t ,"%d,%d-%d-%dT%d:%d:%d+%d:%d,%f", &numstation , &annee ,&mois , &jour ,&heure ,&poubelle , &poubelle , &poubelle , &poubelle ,&data ) !=EOF)
@@ -546,15 +701,87 @@ z=insertiontemp3(z ,data ,  heure, jour , mois , annee , numstation  );
 
 }  
 
- parcoursT3 (z ,t2  ,&a  , &b  ,&c ,&d);
+if (r==1) 
+ {
 
+parcoursT3 (z ,t2  ,&a  , &b  ,&c ,&d);
+ }
+ else 
+ {
+parcoursT3r (z ,t2  ,&a  , &b  ,&c ,&d);
+ }
+ 
+suppresiontemp(z);
 fclose(t) ; 
 fclose(t2) ; 
 
 }
 
-int main ()
+int main (int argc , char * argv[])
 { 
-t3();
-return 0;
-} 
+char entreefichier [20] ;
+char sortiefichier [20] ;
+int r =1 ; 
+for (int i ; i<argc , i++)
+{
+if ( strcmp ("r" , argv[i]) == 0)
+{
+    r=100 ; 
+}
+
+if ( strcmp ("f" , argv[i])== 0)
+{
+ entreefichier = argv[i+1]; 
+}
+
+if ( strcmp ("o" , argv[i])== 0)
+{
+ sortiefichier = argv[i+1]; 
+}
+
+// choix du tri 
+if ( strcmp ("w" , argv[i])== 0)
+{
+    vent( r , f , o);
+}
+else if (  strcmp ("t1" , argv[i])== 0)
+{
+    t1(r , f, o );
+}
+else if (  strcmp ("t2" , argv[i])== 0)
+{
+    t2(r , f, o );
+}
+else if (  strcmp ("t3" , argv[i])== 0)
+{
+    t3(r , f, o );
+}
+else if (strcmp("h" , argv[i]) == 0)
+{
+    altitudedata(r , f ,o );
+}
+else if (strcmp("m" , argv[i]) == 0)
+{
+    humiditédata (r , f ,o );
+}
+else if (  strcmp ("p1" , argv[i])== 0)
+{
+    t1(r , f, o );
+}
+else if (  strcmp ("p2" , argv[i])== 0)
+{
+    t2(r , f, o );
+}
+else if (  strcmp ("p3" , argv[i])== 0)
+{
+    t3(r , f, o );
+}
+else
+{
+
+}
+
+
+}
+ return 0;
+}
