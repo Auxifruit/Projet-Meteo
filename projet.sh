@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 . fonctions.sh  # On inclut un autre fichier .sh qui contient des fonctions
 
 
@@ -203,44 +204,85 @@ if [ -n "$d" ] ; then   # On vérifie si un filtrage selon la date est nécessai
 
     head -n1 "$f" > filtre.csv
     awk -v A1="$ANNEE1" -v M1="$MOIS1" -v J1="$JOUR1" -v A2="$ANNEE2" -v M2="$MOIS2" -v J2="$JOUR2" -F'[;T-]' '{  
-                                                                    if($2>A1 && $2<A2){
-                                                                        print;
-                                                                    } else
-                                                                    {
-                                                                        if($2==A1)
-                                                                        {
-                                                                            if($3>M1)
-                                                                            {
-                                                                                print;
-                                                                            } else
-                                                                            {
-                                                                                if($3==M1)
-                                                                                {
-                                                                                    if($4>=J1)
-                                                                                    {
-                                                                                        print;
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                        if($2==A2)
-                                                                        {
-                                                                            if($3<M2)
-                                                                            {
-                                                                                print
-                                                                            } else
-                                                                            {
-                                                                                if($3==M2)
-                                                                                {
-                                                                                    if($4<=J2)
-                                                                                    {
-                                                                                        print;
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    }' "$f" >> filtre.c
+        if($2>A1 && $2<A2)
+        {
+            print;
+        }
+        else
+        {
+            if($2==A1 && $2==A2) 
+            {
+                if($3==M1 && $3==M2) 
+                {
+                    if($4==J1 && $4==J2)
+                    {
+                        print;
+                    }
+                }
+                else
+                {   
+                    if($3>M1 && $3<M2)
+                    {
+                        print;
+                    }
+                    else
+                    {
+                        if($3==M1)
+                        {
+                            if($4>=J1)
+                            {
+                                print;
+                            }
+                        }
+                        if($3==M2)
+                        {
+                            if($4<=J2)
+                            {
+                                print;
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if($2==A1)
+                {
+                    if($3>M1)
+                    {
+                        print;
+                    }
+                    else
+                    {
+                        if($3==M1)
+                        {
+                            if($4>=J1)
+                            {
+                                print;
+                            }
+                        }
+                    }
+                }
+                if($2==A2)
+                {
+                    if($3<M2)
+                    {
+                        print;
+                    }
+                    else
+                    {
+                        if($3==M2)
+                        {
+                            if($4<=J2)
+                            {
+                                print;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }' "$f" >> filtre.csv
     else
         echo "Pas de tri selon une date min et max."
 fi
@@ -295,7 +337,7 @@ elif [ -n "$Q" ] ; then     # On vérifie si un filtrage selon le lieux, ici l'A
     f="filtre.csv"
     echo -e "Le filtrage selon les données d'Antarctique a été effectué.\n"   # Message de validation
 else
-    echo "Pas de filtrage selon la date et/ou le lieux."
+    echo "Pas de filtrage selon le lieux."
     sleep 1
 fi
 
@@ -311,7 +353,7 @@ sleep 1
 # Température
 
 if [ "$t" -eq 1 ] ; then
-    tail -n+2 "$f" | LC_NUMERIC="C" awk -F ";" 'BEGIN{OFS=FS}
+    tail -n+2 "$f" | LC_NUMERIC="C" awk -F ";" '
     {
     if($11!="")
     {
@@ -337,11 +379,11 @@ if [ "$t" -eq 1 ] ; then
         }
     }
     }
-    END{for(ID in som) print ID, max[ID], min[ID], som[ID]/compt[ID]}' > temperature1.txt    # On récupère l'ID de la station, la température max, la température min et la température moyenne que l'on met dans un fichier.txt
+    END{for(ID in som) print ID, min[ID], max[ID], som[ID]/compt[ID]}' > temperature1.txt    # On récupère l'ID de la station, la température max, la température min et la température moyenne que l'on met dans un fichier.txt
     echo -e "Le fichier sur la température en mode 1 a été crée.\n"  # Message de validation
     Tri_en_C temperature1.txt "$abr" "$tab"
 elif [ "$t" -eq 2 ] ; then
-    tail -n+2 "$f" | awk -F";" 'BEGIN{OFS=FS}
+    tail -n+2 "$f" | awk -F";" '
     {
     if($11!="")
     {
@@ -368,7 +410,7 @@ fi
 # Pression atmosphérique
 
 if [ "$p" -eq 1 ] ; then
-    tail -n+2 "$f" | LC_NUMERIC="C" awk -F ";" 'BEGIN{OFS=FS}
+    tail -n+2 "$f" | LC_NUMERIC="C" awk -F ";" '
     {
     if($7!="")
     {
@@ -394,11 +436,11 @@ if [ "$p" -eq 1 ] ; then
         }
     }
     }
-    END{for(ID in som) print ID, max[ID], min[ID], som[ID]/compt[ID]}' > pression1.txt    # On récupère l'ID de la station, la pression max, la pression min et la pression moyenne que l'on met dans un fichier.txt
+    END{for(ID in som) print ID, min[ID], max[ID], som[ID]/compt[ID]}' > pression1.txt    # On récupère l'ID de la station, la pression max, la pression min et la pression moyenne que l'on met dans un fichier.txt
     echo -e "Le fichier sur la pression atmosphérique en mode 1 a été crée.\n"   # Message de validation
     Tri_en_C pression1.txt "$abr" "$tab"
 elif [ "$p" -eq 2 ] ; then
-    tail -n+2 "$f" | awk -F";" 'BEGIN{OFS=FS}
+    tail -n+2 "$f" | awk -F";" '
     {
     if($7!="")
     {
@@ -456,7 +498,7 @@ if [ "$h" -eq 1 ] ; then
         lat[ID]=LAT
         long[ID]=LONG
     }
-    END{for(ID in alt) print long[ID], lat[ID], alt[ID]}' > altitude.txt   # On récupère l'ID de la station, l'altitude et les coordonnées que l'on met dans un fichier.txt
+    END{for(ID in alt) print alt[ID], long[ID], lat[ID]}' > altitude.txt   # On récupère l'ID de la station, l'altitude et les coordonnées que l'on met dans un fichier.txt
     echo -e "Le fichier sur l'altitude a été crée.\n"    # Message de validation
     Tri_en_C altitude.txt "$abr" "$tab" r
 fi
@@ -464,25 +506,26 @@ fi
 # Humidité
 
 if [ "$m" -eq 1 ] ; then
-    tail -n+2 "$f" | awk -F ";" 'BEGIN{OFS=FS}
+    tail -n+2 "$f" | awk -F'[;,]' '
     {
-        ID=$1; M=$6; CO=$10
+        ID=$1; M=$6; LAT=$10; LONG=$11
     }
-    !(ID in max) {
-        max[ID]=M
-        coor[ID]=CO
+    !(ID in moist) {
+        moist[ID]=M
+        lat[ID]=LAT
+        long[ID]=LONG
     }
     {
-        if(max[ID]<M)
+        if(moist[ID]<M)
         {
-            max[ID]=M
+            moist[ID]=M
         }
     }
-    END{for(ID in max) print ID, max[ID], coor[ID]}' > humidite.txt     # On récupère l'ID de la station, l'humidité et les coordonnées que l'on met dans un fichier.txt
+    END{for(ID in moist) print moist[ID], long[ID], lat[ID]}' > humidite.txt     # On récupère l'ID de la station, l'humidité et les coordonnées que l'on met dans un fichier.txt
     echo -e "Le fichier sur l'humidite a été crée.\n"    # Message de validation
     Tri_en_C humidite.txt "$abr" "$tab" r
 fi
 
-if [ -e "filtre.csv" ] ; then   # On vérifie si on a utilisé un fichier temporaire pour le filtrage
-    rm filtre.csv   # On suprrime le fichier temporaire qui a servi à filtrer le fichier principal
-fi
+#if [ -e "filtre.csv" ] ; then   # On vérifie si on a utilisé un fichier temporaire pour le filtrage
+#    rm filtre.csv   # On suprrime le fichier temporaire qui a servi à filtrer le fichier principal
+#fi
