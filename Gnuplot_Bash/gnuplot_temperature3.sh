@@ -4,6 +4,7 @@ gnuplot -persist <<-EOFMarker
     set title "Températures selon la date/heure"
     set xlabel "Jour"
     set ylabel "Température"
+    unset key
     set xdata time
     set timefmt "%Y-%m-%dT%H%M%S"
     set xtic rotate
