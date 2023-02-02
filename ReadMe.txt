@@ -109,6 +109,7 @@ Le script retourne des valeurs différentes si l'exécution s'est bien déroulé
 	- 0: tout c'est bien passé
 	- 1: erreur argument
 	- 2: erreur sur le fichier d'entré
+	- 3: erreur sur la date
 
 ## CRÉATEURS
 
