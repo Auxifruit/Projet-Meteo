@@ -4,7 +4,8 @@ Répartition des tâches:
 
 Programme en shell: Guillaume Barré
 Programme en C: Lucas Bezamat
-Commentaires: Guillaume Barré / Lucas Bezamat
+Commentaires en shell: Guillaume Barré
+Commentaire en C: Lucas Bezamat
 Makefile: Guillaume Barré
 
 Planning de réalisation:
