@@ -4,10 +4,8 @@ Répartition des tâches:
 
 Programme en shell: Guillaume Barré
 Programme en C: Lucas Bezamat
-Gnuplot: Lucas Bezamat
 Commentaires: Guillaume Barré / Lucas Bezamat
 Makefile: Guillaume Barré
-Mis en page: Guillaume Barré
 
 Planning de réalisation:
 
@@ -17,4 +15,4 @@ Il y a eu une période où nous n'avions pas avancé sur le projet à cause des 
 Limitations fonctionnelles:
 
 Utiliser "/" pour séparer les deux dates.
-Utilisation d'un mode à la fois pour la température et la pression. C'est-à-dire qu'on ne peut pas faire par exemple: -t1 et -t2 en dans la même execution. Le dernier mode rentrer sera pris en compte.
+Utilisation d'un mode à la fois pour la température et la pression. C'est-à-dire qu'on ne peut pas faire par exemple: -t1 et -t2 en dans la même execution. Le dernier mode rentrer sera pris en compte, ici -t2.
