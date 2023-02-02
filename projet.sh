@@ -159,7 +159,7 @@ if [ "$#" -gt 0 ] && ([ "$t" -eq 0 ] && [ "$p" -eq 0 ] && [ "$w" -eq 0 ] && [ "$
 elif [ ! -e "$f" ] || [ ! -f "$f" ] ; then
     echo "Erreur: le ficher "$f" n'existe pas, veuillez en saisir un nouveau. N'oubliez pas son extension." # Message d'erreur
     echo -e "Référez-vous au --help si vous avez besoin d'aide.\n"
-    exit 1
+    exit 2
 fi
 
 
@@ -178,22 +178,22 @@ if [ -n "$d" ] ; then   # On vérifie si un filtrage selon la date est nécessai
 
     if [ -z $ANNEE1 ] || [ -z $ANNEE2 ] || ([ $ANNEE1 -lt 2010 ] || [ $ANNEE1 -gt 2022 ]) || ([ $ANNEE2 -lt 2010 ] || [ $ANNEE2 -gt 2022 ]) ; then      # On vérifié si les deux années sont correctes
         echo "Erreur: date incorrecte."     # Message d'erreur
-        exit 1
+        exit 3
     elif [ $ANNEE1 -gt $ANNEE2 ] ; then     # On vérifié si les deux années sont correctes
         echo "Erreur: la première année doit être inférieure à la seconde."     # Message d'erreur
-        exit 1
+        exit 3
     else
         MOIS1=$(echo "$DATE1" | awk -F "-" '{print $2}')    # On récupère le premier mois        
         MOIS2=$(echo "$DATE2" | awk -F "-" '{print $2}')    # On récupère le second mois
         if [ -z $MOIS1 ] || [ -z $MOIS2 ] || ([ $MOIS1 -lt 1 ] || [ $MOIS1 -gt 12 ]) || ([ $MOIS2 -lt 01 ] || [ $MOIS2 -gt 12 ]) ; then     # On vérifié si les deux mois sont corrects
             echo "Erreur: mois incorrect."      # Message d'erreur
-            exit 1
+            exit 3
         else
             JOUR1=$(echo "$DATE1" | awk -F "-" '{print $3}')    # On récupère le premier jour           
             JOUR2=$(echo "$DATE2" | awk -F "-" '{print $3}')    # On récupère le second jour  
             if [ -z $JOUR1 ] || [ -z $JOUR2 ] || ([ $JOUR1 -lt 1 ] || [ $JOUR1 -gt 31 ]) || ([ $JOUR2 -lt 1 ] || [ $JOUR2 -gt 31 ]) ; then      # On vérifié si les deux jours sont corrects
                 echo "Erreur: jour incorrect."  # Message d'erreur
-                exit 1
+                exit 3
             fi
         fi
     fi
@@ -338,7 +338,6 @@ elif [ -n "$Q" ] ; then     # On vérifie si un filtrage selon le lieux, ici l'A
     echo -e "Le filtrage selon les données d'Antarctique a été effectué.\n"   # Message de validation
 else
     echo "Pas de filtrage selon le lieux."
-    sleep 1
 fi
 
 
@@ -353,6 +352,7 @@ sleep 1
 # Température
 
 if [ "$t" -eq 1 ] ; then
+    echo "Filtre selon la température en mode 1."
     tail -n+2 "$f" | LC_NUMERIC="C" awk -F ";" '
     {
     if($11!="")
@@ -383,6 +383,7 @@ if [ "$t" -eq 1 ] ; then
     echo -e "Le fichier sur la température en mode 1 a été crée.\n"  # Message de validation
     Tri_en_C temperature1.txt "$abr" "$tab"
 elif [ "$t" -eq 2 ] ; then
+    echo "Filtre selon la température en mode 2."
     tail -n+2 "$f" | awk -F";" '
     {
     if($11!="")
@@ -396,7 +397,8 @@ elif [ "$t" -eq 2 ] ; then
     echo -e "Le fichier sur la température en mode 2 a été crée.\n"   # Message de validation
     Tri_en_C temperature2.txt "$abr" "$tab"
 elif [ "$t" -eq 3 ] ; then
-    tail -n+2 "$f" | awk -F";" 'BEGIN{OFS=FS}
+    echo "Filtre selon la température en mode 3."
+    tail -n+2 "$f" | awk -F";" '
     {
         if($11!="")
         {
@@ -410,6 +412,7 @@ fi
 # Pression atmosphérique
 
 if [ "$p" -eq 1 ] ; then
+    echo "Filtre selon la pression atmosphérique en mode 1."
     tail -n+2 "$f" | LC_NUMERIC="C" awk -F ";" '
     {
     if($7!="")
@@ -440,6 +443,7 @@ if [ "$p" -eq 1 ] ; then
     echo -e "Le fichier sur la pression atmosphérique en mode 1 a été crée.\n"   # Message de validation
     Tri_en_C pression1.txt "$abr" "$tab"
 elif [ "$p" -eq 2 ] ; then
+    echo "Filtre selon la pression atmosphérique en mode 2."
     tail -n+2 "$f" | awk -F";" '
     {
     if($7!="")
@@ -453,7 +457,8 @@ elif [ "$p" -eq 2 ] ; then
     echo -e "Le fichier sur la pression atmosphérique en mode 2 a été crée.\n"   # Message de validation
     Tri_en_C pression2.txt "$abr" "$tab"
 elif [ "$p" -eq 3 ] ; then
-    tail -n+2 "$f" | awk -F";" 'BEGIN{OFS=FS}
+    echo "Filtre selon la pression atmosphérique en mode 2."
+    tail -n+2 "$f" | awk -F";" '
     {
         if($7!="")
         {
@@ -467,7 +472,8 @@ fi
 # Vent
 
 if [ "$w" -eq 1 ] ; then
-    tail -n+2 "$f" | awk -F";" 'BEGIN{OFS=FS}
+    echo "Filtre selon le vent."
+    tail -n+2 "$f" | awk -F";" '
     {
     if($4!="")
     {
@@ -489,6 +495,7 @@ fi
 # Altitude
 
 if [ "$h" -eq 1 ] ; then
+    echo "Filtre selon l'altitude."
     tail -n+2 "$f" | LC_NUMERIC="C" awk -F'[;,]' '
     {
         ID=$1; H=$15; LAT=$10; LONG=$11
@@ -506,6 +513,7 @@ fi
 # Humidité
 
 if [ "$m" -eq 1 ] ; then
+    echo "Filtre selon l'humidité."
     tail -n+2 "$f" | awk -F'[;,]' '
     {
         ID=$1; M=$6; LAT=$10; LONG=$11
@@ -526,6 +534,6 @@ if [ "$m" -eq 1 ] ; then
     Tri_en_C humidite.txt "$abr" "$tab" r
 fi
 
-#if [ -e "filtre.csv" ] ; then   # On vérifie si on a utilisé un fichier temporaire pour le filtrage
-#    rm filtre.csv   # On suprrime le fichier temporaire qui a servi à filtrer le fichier principal
-#fi
+if [ -e "filtre.csv" ] ; then   # On vérifie si on a utilisé un fichier temporaire pour le filtrage
+    rm filtre.csv   # On suprrime le fichier temporaire qui a servi à filtrer le fichier principal
+fi
