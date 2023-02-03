@@ -12,7 +12,7 @@
 8. [TRI](#tri)
 9. [FICHIER](#fichier)
 10. [EXEMPLE DE LANCEMENT](#exemple-de-lancement)
-11. [ERREURS POSSIBLES](#erreurs-possibles)
+11. [ERREURS POSSIBLES EN SHELL](#erreurs-possibles-en-shell)
 12. [CRÉATEURS](#créateurs)
 
 ## INFORMATIONS GÉNÉRALES
@@ -103,6 +103,7 @@ Si plusieurs options sont renseignées, la première selon l'ordre ci-dessus est
 ### HELP
 
 L'option d'aide est:
+
 	--help
 
 Cette option permet d'avoir des informations sur le script et comment l'utiliser. <br />
@@ -128,7 +129,7 @@ $ bash projet.sh -fdata.csv -d2015-12-8/2016-5-25 -h -p1 -S --abr
 	
 	--abr : le script fait le tri avec un ABR.
 
-### ERREURS POSSIBLES
+### ERREURS POSSIBLES EN SHELL
 
 Le script retourne des valeurs différentes si l'exécution s'est bien déroulée:
 
