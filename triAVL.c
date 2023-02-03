@@ -615,6 +615,16 @@ FILE *ALT= fopen( entreefichier,"r");
 FILE *h= fopen(sortiefichier,"w");
 int k= 0 ;
 
+if (ALT ==NULL)
+{
+    printf(" erreur fichier ");
+    exit (2);
+}
+if (h==NULL)
+{
+    printf(" erreur fichier ");
+    exit (2);
+}
 while (fscanf(ALT ,"%f %f %f\n"  , &data, &longi , &lat)!=EOF)
 {
 
