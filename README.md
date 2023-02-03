@@ -13,7 +13,10 @@
 9. [FICHIER](#fichier)
 10. [EXEMPLE DE LANCEMENT](#exemple-de-lancement)
 11. [ERREURS POSSIBLES EN SHELL](#erreurs-possibles-en-shell)
-12. [CRÉATEURS](#créateurs)
+12. [COMMUNICATION AVEC LE C](#communication-avec-le-c)
+13. [PRODUCTION DES DIAGRAMMES](#production-des-diagrammes)
+14. [EXEMPLES DE DIAGRAMMES](#exemples-de-diagrammes)
+15. [CRÉATEURS](#créateurs)
 
 ## INFORMATIONS GÉNÉRALES
 
@@ -138,6 +141,44 @@ Le script retourne des valeurs différentes si l'exécution s'est bien déroulé
 	- 1: erreur argument
 	- 2: erreur sur le fichier d'entré
 	- 3: erreur sur la date
+
+### COMMUNICATION AVEC LE C
+
+Après avoir créer les fichiers nécessaires. Le script shell les envoies au programme c avec les options suivantes:
+
+	-f<nom du fichier d'entré>
+	-o<nom du fichier de sortie>
+
+L'option -f permet au programme de savoir depuis quel fichier récupérer les données. <br />
+Le programme tri les données selon le mode de tri choisi. <br />
+Puis les envoie dans un fichier de sorti connu grâce à l'option -o. <br />
+
+Une autre option est possible:
+
+	-r
+
+L'option -r permet de faire un tri inverse. <br />
+
+### PRODUCTION DES DIAGRAMMES
+
+Le script shell récupère les fichiers sortis pour en faire des diagrammes grâce à Gnuplot. <br />
+Le type de diagramme dépend des types de données:
+
+	-t1 et p1: diagramme de type barre d'erreur
+	-t2 et p2: diagramme de type ligne simple
+	-t3 et p3: diagramme de type multi-lignes
+	-w: diagramme de type vecteurs
+	-h: diagramme de type carte interpolée et colorée
+	-m: diagramme de type carte interpolée et colorée
+
+### EXEMPLES DE DIAGRAMMES
+
+Si nous reprennons l'exemple précédent, nous aurons donc un diagramme de type barre d'erreur pour la pression en mode 1 et un diagramme de type carte interpolée et colorée pour l'altitude. <br />
+
+Diagramme de type barre d'erreur pour la pression en mode 1:
+
+Diagramme de type carte interpolée et colorée pour l'altitude:
+
 
 ## CRÉATEURS
 
