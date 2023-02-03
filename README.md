@@ -28,7 +28,7 @@ Pour lancer le programme:
 Le script a besoin de plusieures options pour fonctionner. Vous pouvez les saisir dans l'odre que vous voulez.
 Les options possibles pour le script sont:
 
-## OPTIONS OBIGLATOIRE
+## OPTIONS OBLIGATOIRE
 
 ### TYPE DE DONNÉES
 
@@ -47,6 +47,17 @@ Le dernier mode sera pris en compte. <br />
 Au moins l'une de ces options doivent être présentes pour que le script fonctionne. <br />
 Il n'y a pas de limite quant à l'utilisation de ces options. <br />
 Vous pouvez demandez de traiter la température, le vent et l'altitude en une seule fois. <br />
+
+### FICHIER
+
+L'option de fichier est:
+
+	-f<nom_fichier>
+	
+Cette option sert à connaître le nom du fichier d'entré pour que le script puisse acquérir toutes les données. <br />
+Cette option est obligatoire pour que le script fonctionne. <br />
+
+## OPTIONS FACULTATIVES
 
 ### LIEUX
 
@@ -88,14 +99,13 @@ Ces options ne sont pas obligatoires, si aucune n'est renseignée le tri sera fa
 Seule une option de tri est possible à la fois. <br />
 Si plusieurs options sont renseignées, la première selon l'ordre ci-dessus est prise en compte. <br />
 
-### FICHIER
+### HELP
 
-L'option de fichier est:
+L'option d'aide est:
+	--help
 
-	-f<nom_fichier>
-	
-Cette option sert à connaître le nom du fichier d'entré pour que le script puisse acquérir toutes les données. <br />
-Cette option est obligatoire pour que le script fonctionne. <br />
+Cette option permet d'avoir des informations sur le script et comment l'utiliser.
+Cette option doit être renseignée seule pour fonctionner
 
 ### EXEMPLE DE LANCEMENT
 
@@ -119,7 +129,7 @@ $ bash projet.sh -fdata.csv -d2015-12-8/2016-5-25 -h -p1 -S --abr
 
 ### ERREURS POSSIBLES
 
-Le script retourne des valeurs différentes si l'exécution s'est bien déroulé:
+Le script retourne des valeurs différentes si l'exécution s'est bien déroulée:
 
 	- 0: tout c'est bien passé
 	- 1: erreur argument
