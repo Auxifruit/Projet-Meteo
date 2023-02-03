@@ -4,19 +4,20 @@
 ## Table des matières
 1. [INFORMATIONS GÉNÉRALES](#informations-générales)
 2. [UTILISATION](#utilisation)
-3. [OPTIONS](#options)
-4. [TYPE DE DONÉES](#type-de-données)
-5. [LIEUX](#lieux)
-6. [DATE](#date)
-7. [TRI](#tri)
-8. [FICHIER](#fichier)
-9. [EXEMPLE DE LANCEMENT](#exemple-de-lancement)
-10. [ERREURS POSSIBLES](#erreurs-possibles)
-11. [CRÉATEURS](#créateurs)
+3. [OPTIONS OBLIGATOIRE](#options-obligatoire)
+4. [OPTIONS FACULTATIVES](#options-facultatives)
+5. [TYPE DE DONÉES](#type-de-données)
+6. [LIEUX](#lieux)
+7. [DATE](#date)
+8. [TRI](#tri)
+9. [FICHIER](#fichier)
+10. [EXEMPLE DE LANCEMENT](#exemple-de-lancement)
+11. [ERREURS POSSIBLES](#erreurs-possibles)
+12. [CRÉATEURS](#créateurs)
 
 ## INFORMATIONS GÉNÉRALES
 
-Le projet "nom du projet" permet depuis un fichier de données météo de les trier selon certaines conditions et de dessiner des graphiques. Le projet utiliser un script en shell et un programme en c.
+Le projet "nom du projet" permet depuis un fichier de données météo de les trier selon certaines conditions et de dessiner des graphiques. Le projet utilise un script en shell et un programme en c.
 
 ## UTILISATION
 
@@ -27,7 +28,7 @@ Pour lancer le programme:
 Le script a besoin de plusieures options pour fonctionner. Vous pouvez les saisir dans l'odre que vous voulez.
 Les options possibles pour le script sont:
 
-## OPTIONS
+## OPTIONS OBIGLATOIRE
 
 ### TYPE DE DONNÉES
 
