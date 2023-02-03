@@ -17,3 +17,12 @@ Limitations fonctionnelles:
 
 Utiliser "/" pour séparer les deux dates.
 Utilisation d'un mode à la fois pour la température et la pression. C'est-à-dire qu'on ne peut pas faire par exemple: -t1 et -t2 en dans la même execution. Le dernier mode rentrer sera pris en compte, ici -t2.
+
+Sources:
+
+Nous nous sommes appuyés sur plusieurs sources pour nous aidés à réaliser notre projet:
+  - https://stackoverflow.com/
+  - https://unix.stackexchange.com/
+  - http://www.gnuplot.info/
+  - https://koor.fr/
+  - https://www.youtube.com/
