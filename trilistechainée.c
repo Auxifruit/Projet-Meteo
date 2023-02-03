@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <math.h>
-
+#include <string.h>
 typedef struct liste {
     float x;
     float y; 
@@ -42,6 +42,7 @@ pListe creationChainon( float x ,float y, float data  ,float max  ,float moy  , 
     noeud->mois = mois ; 
     noeud->annee  = annee;
     noeud->numstation = numstation;
+
     noeud->suivant=NULL;
 return noeud ; 
 }
@@ -50,6 +51,8 @@ return noeud ;
 
 pListe insertionliste ( pListe N , float x ,float y  ,float data,float max  ,float moy  , float min  , float longitude ,float latitude  ,int heure , int jour,int mois  , int annee , int numstation )
 {
+
+ 
      if (N==NULL )
 {
      return creationChainon (x , y , data, max  , moy  ,  min  ,  longitude , latitude  , heure,  jour , mois  ,  annee ,  numstation );
@@ -68,6 +71,7 @@ else
     z=z->suivant ; 
    }
    z->suivant = k ; // o n rentre le nouveaux chainons dans la liste 
+   return N;
 }
 }
 int datedifferente ( int  heure , int jour ,int mois  ,int annee, int heure2 ,int jour2  ,int mois2 , int annee2)
@@ -121,49 +125,33 @@ return 22 ;//pour les egalités
 
 void parcourstemp1(pListe z , FILE* f)
 {
-	if(z->suivant!= NULL) 
+	if(z!= NULL) 
 	{ 
-	
 	    fprintf (f, "%d %f %f %f\n", z->numstation , z->max ,  z->moy ,  z->min);  
+        parcourstemp1(z->suivant, f);
 	
 	}	 
 } 
 
-void parcourstemp1renv(pListe z , FILE* f)
-{
-	if(z->suivant!= NULL) 
-	{ 
-         fseek(f, 0 ,  SEEK_SET); 
-	    fprintf (f, "%d %f %f %f\n", z->numstation , z->max ,  z->moy ,  z->min);  
-	
-	}	 
-} 
+
+
 
 void parcourstemp2(pListe z , FILE* f)
 {
-	if(z->suivant!= NULL) 
+	if(z!= NULL) 
 	{ 
 
-	    fprintf (f, "%d %d %d %d %f \n",  z->heure , z->jour , z->mois , z->annee, z->data );  
-
+	fprintf (f, "%d-%d-%dT%d %f \n",z->annee ,  z->mois , z->jour  ,  z->heure , z->data );  
+parcourstemp2(z->suivant, f ); 
 	}	 
 }
 
 
-void parcourstemp2renv(pListe z , FILE* f)
-{
-	if(z->suivant!= NULL) 
-	{ 
-         fseek(f, 0 ,  SEEK_SET); 
-	    fprintf (f, "%d %d %d %d %f \n",  z->heure , z->jour , z->mois , z->annee, z->data );  
-
-	}	 
-}
 
 
 void parcourstemp3 (  pListe  a , FILE* f  , int *heure , int* jour , int* mois , int *annee  )
 {
-if (a->suivant !=NULL) 
+if (a!=NULL) 
 {
  
  
@@ -181,61 +169,31 @@ if (a->suivant !=NULL)
 fprintf (f , "%f ", a->data );
 
 }
+parcourstemp3 (a->suivant , f , heure , jour , mois , annee);
  }
  } 
  
 
-
-void parcourstemp3 (  pListe  a , FILE* f  , int *heure , int* jour , int* mois , int *annee  )
-{
-if (a->suivant !=NULL) 
-{
- 
- 
- if (datedifferente(  *heure , *jour , *mois , *annee,  a->heure, a->jour ,a->mois , a->annee ) ==0 ) 
-{
-fseek(f, 0 ,  SEEK_SET); 
- fprintf (f, "\n%d/%d/%d/%d ", a->heure , a->jour ,a->mois , a->annee );
- *jour = a->jour;
- *heure = a->heure ; 
- *mois  = a->mois ; 
- *annee = a->annee;
-}
- if (datedifferente(  *heure , *jour , *mois , *annee,  a->heure, a->jour ,a->mois , a->annee ) ==1);
-{
-fprintf (f , "%f ", a->data );
-
-}
- }
- } 
  
 void parcours (pListe  z , FILE* f)
 {
-	if(z->suivant!=NULL) 
+	if(z!=NULL) 
 	{ 
 	
-	 fprintf (f, "%f %f %f\n", z->longitude , z->latitude , z->data );  
-	
+	  fprintf (f, "%f %f %f\n", z->longitude , z->latitude , z->data ); 
+	parcours (z->suivant , f);
 	}	 
 }
 
-
-void parcoursinverse (pListe z, FILE* f )
-{
-    while (z->suivant!= NULL  )
-    {   fseek(f, 0 ,  SEEK_SET); 
-         fprintf (f, "%f %f %f\n", z->longitude , z->latitude , z->data );  
-    }
-}
 
 
 void parcoursvect (pListe z , FILE* f)
 {
-	if(z->suivant!= NULL) 
+	if(z!= NULL) 
 	{ 
-    fseek(f, 0 ,  SEEK_SET);
+    
 	fprintf (f, "%f %f %f %f %f\n", z->longitude , z->latitude , z->x , z->y , z->data );  
-	
+	parcoursvect(z->suivant , f); 
 	}	 
 }
 
@@ -258,7 +216,7 @@ pListe  sortedMerge(pListe a, pListe  b)
     pListe result = NULL;
  
     // sélectionne `a` ou `b`, et se reproduit
-    if (a->data <= b->data)
+    if (a->data < b->data)
     {
         result = a;
         result->suivant = sortedMerge(a->suivant, b);
@@ -350,14 +308,14 @@ pListe  sortedMergenumst(pListe a, pListe  b)
     pListe result = NULL;
  
     // sélectionne `a` ou `b`, et se reproduit
-    if (a->numstation <= b->numstation)
+    if (a->numstation < b->numstation)
     {
         result = a;
-        result->suivant = sortedMerge(a->suivant, b);
+        result->suivant = sortedMergenumst (a->suivant, b);
     }
     else {
         result = b;
-        result->suivant= sortedMerge(a, b->suivant );
+        result->suivant= sortedMergenumst(a, b->suivant );
     }
  
     return result;
@@ -444,11 +402,11 @@ pListe  sortedMergedate(pListe a, pListe  b)
     // si la date de a est plus  petite ou egale alors 
     {
         result = a;
-        result->suivant = sortedMerge(a->suivant, b);
+        result->suivant = sortedMergedate(a->suivant, b);
     }
     else {
         result = b;
-        result->suivant = sortedMerge(a, b->suivant );
+        result->suivant = sortedMergedate(a, b->suivant );
     }
  
     return result;
@@ -518,15 +476,36 @@ void mergesortdate (pListe* head)
 
 void suppliste(pListe z  )
 {
-    pListe k = z ; 
-    while (z->suivant != NULL)
+   pListe k = z ; 
+    if (z!= NULL)
     {
-        z=z->suivant ; 
-        free(k); 
-        k = z ; 
+        z=z->suivant;
+    
+      free (k);
+      suppliste (z);
     }
 }
- 
+
+
+
+//////////////////////////// inverse liste ///////////////////////////////////////////////////
+
+void reverse2 (pListe* tete)
+ {
+    pListe nouveau = NULL ; 
+    pListe actue = *tete ; 
+    pListe suivants ;
+    while (actue !=NULL)
+    {
+        suivants = actue->suivant ; 
+
+        actue->suivant = nouveau ;
+
+        nouveau=actue ;
+        actue = suivants ;
+    }
+    *tete = nouveau;
+ }
 /////////////////////////////////////////// Fonctions par option ///////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -539,10 +518,10 @@ float longi=6;
 float lat =6;
 float data;
 
-FILE *m= fopen("humid.csv","r");
-FILE *m2= fopen("m.txt","w"); 
+FILE *m= fopen(entreefichier,"r");
+FILE *m2= fopen(sortiefichier,"w"); 
 
-while (fscanf(m ,"%d;%f;%f,%f\n " , &numstation , &data , &lat , &longi )!=EOF)
+while (fscanf(m ,"%f %f %f\n " , &data , &lat , &longi )!=EOF)
 {
 
 
@@ -553,7 +532,8 @@ if (r== 1)
 parcours(z , m2);
 else 
 {
-parcoursinverse(z , m2);
+    reverse2(&z);
+parcours(z , m2);
 }
 suppliste( z) ;
 fclose(m2);
@@ -573,11 +553,11 @@ float data;
 float angle;
 float x , y ;
 
-FILE *w= fopen("w.csv","r");
-FILE *w2= fopen("w.txt","w"); 
+FILE *w= fopen(entreefichier,"r");
+FILE *w2= fopen(sortiefichier,"w"); 
 
 
-while (fscanf(w ,"%d;%f;%f;%f,%f\n" , &numstation , &data ,  &angle  , &longi, &lat )!=EOF)
+while (fscanf(w ,"%d %f %f %f %f\n" , &numstation , &data ,  &angle  , &longi, &lat )!=EOF)
 {
 x=cosf (angle) ;
 y=sinf (angle);
@@ -592,7 +572,9 @@ parcoursvect (z , w2);
 }
 else 
 {
-parcoursinverse(z , w2);
+    reverse2(&z);
+    parcoursvect(z, w2);
+
 }
 
 
@@ -604,32 +586,36 @@ fclose(w);
 void altitudedata(int r , char entreefichier [20] , char sortiefichier[20]) 
 {
 
-
 pListe z= NULL;
-int numstation;
+int numstation=0;
 float data;
 float longi;
 float lat ;
-FILE *ALT= fopen("altitude.csv","r");
-FILE *h= fopen("h.txt","w");
-while (fscanf(ALT ,"%d;%f,%f;%f\n " , &numstation , &longi , &lat , &data )!=EOF)
-{
 
+FILE *ALT= fopen(entreefichier,"r");
+FILE *h= fopen(sortiefichier,"w");  
+while (fscanf(ALT ,"%f %f %f \n " ,&data ,  &longi , &lat )!=EOF)
+{
 
 z=insertionliste( z, 0 , 0 ,  data  , 0  ,0 , 0 , longi , lat, 0 , 0  ,0 , 0  , numstation);
 
 }
 
 mergesort(&z);
+
  if (r==1) 
  {
+ 
     parcours(z , h);
  }
  else 
- {
-    parcoursinverse(z , h ) ;
- }
- suppliste( z) ;
+ { 
+reverse2(&z); 
+parcours(z, h ) ;
+
+ } 
+ suppliste( z);
+
 fclose(ALT);
 fclose(h);
 }
@@ -648,22 +634,26 @@ FILE *t= fopen(entreefichier,"r");
 FILE *t2= fopen(sortiefichier,"w"); 
 
 
-while (fscanf(t ,"%d;%f;%f;%f" , &numstation , &max ,&moy , &min  )!=EOF)
+while (fscanf(t ,"%d %f %f %f" , &numstation , &min , &max ,&moy  )!=EOF)
 {
+ 
 
 z=insertionliste( z, 0 , 0 ,  0  , max  , moy, min , 0 ,0 , 0 , 0  ,0 , 0 , numstation);
 }
-mergesortnumst(&z) ; 
+
+mergesortnumst(&z);
 if (r== 1)
 {
 parcourstemp1 (z ,t2  );
+
 }
 else 
 {
-parcourstemp1renv(z ,t2  );
+    reverse2 (&z);
+parcourstemp1( z , t2);
 }
-
 suppliste( z) ;
+
 fclose(t) ; 
 fclose(t2) ; 
 
@@ -683,13 +673,22 @@ FILE *t= fopen(entreefichier,"r");
 FILE *t2= fopen(sortiefichier,"w"); 
 
 
-while (fscanf(t ,"%d-%d-%dT%d:%d:%d+%d:%d;%f" , &annee , &jour , &mois , &heure ,&poubelle ,&poubelle ,&poubelle , &poubelle,&data )!=EOF)
+while (fscanf(t ,"%d-%d-%dT%d:%d:%d+%d:%d %f\n"  , &annee , &mois , &jour , &heure ,&poubelle ,&poubelle ,&poubelle , &poubelle,&data )!=EOF)
 {
-
+     
 z=insertionliste(z, 0 , 0 ,  data  , 0  ,0 , 0 , 0 ,0 , heure  , jour  ,mois  , annee , 0);
 }
 mergesortdate(&z); 
-parcourstemp2 ( z, t2 );
+if (r== 1)
+{
+
+parcourstemp2 (z ,t2 );
+}
+else 
+{
+    reverse2 (&z);
+parcourstemp2 (z ,t2);
+}
 suppliste( z) ;
 fclose(t) ; 
 fclose(t2) ; 
@@ -718,25 +717,37 @@ FILE *t= fopen(entreefichier,"r");
 FILE *t2= fopen(sortiefichier,"w"); 
 
 
-while (fscanf(t ,"%d;%d-%d-%dT%d:%d:%d+%d:%d;%f", &numstation , &annee ,&mois , &jour ,&heure ,&poubelle , &poubelle , &poubelle , &poubelle ,&data ) !=EOF)
+while (fscanf(t ,"%d %d-%d-%dT%d:%d:%d+%d:%d %f", &numstation , &annee ,&mois , &jour ,&heure ,&poubelle , &poubelle , &poubelle , &poubelle ,&data ) !=EOF)
 {
 z=insertionliste( z, 0 , 0 ,  data  , 0  ,0 , 0 , 0 ,0 , heure  , jour  ,mois  , annee , numstation);
 
 }  
 mergesortdate(&z);
+if (r== 1)
+{
+
 parcourstemp3 (z ,t2  ,&a  , &b  ,&c ,&d);
+}
+else 
+{
+    reverse2 (&z);
+parcourstemp3 (z ,t2  ,&a  , &b  ,&c ,&d);
+}
+
 suppliste( z) ;
 fclose(t) ; 
 fclose(t2) ; 
 
 }
 
-int main (int argc , char * argv[])
+int main (int argc , char * argv[] )
 { 
-char entreefichier [20] ;
-char sortiefichier [20] ;
+
+    
+char* entreefichier ;
+char* sortiefichier ;
 int r =1 ; 
-for (int i ; i<argc , i++)
+for (int i ; i<argc ;i++)
 {
 if ( strcmp ("r" , argv[i]) == 0)
 {
@@ -756,39 +767,39 @@ if ( strcmp ("o" , argv[i])== 0)
 // choix du tri 
 if ( strcmp ("w" , argv[i])== 0)
 {
-    vent( r , f , o);
+    vent( r , entreefichier , sortiefichier);
 }
 else if (  strcmp ("t1" , argv[i])== 0)
 {
-    t1(r , f, o );
+    t1(r , entreefichier ,  sortiefichier);
 }
 else if (  strcmp ("t2" , argv[i])== 0)
 {
-    t2(r , f, o );
+    t2(r , entreefichier ,  sortiefichier );
 }
 else if (  strcmp ("t3" , argv[i])== 0)
 {
-    t3(r , f, o );
+    t3(r , entreefichier, sortiefichier );
 }
 else if (strcmp("h" , argv[i]) == 0)
 {
-    altitudedata(r , f ,o );
+    altitudedata(r , entreefichier ,sortiefichier);
 }
 else if (strcmp("m" , argv[i]) == 0)
 {
-    humiditédata (r , f ,o );
+    humiditédata (r , entreefichier ,sortiefichier );
 }
 else if (  strcmp ("p1" , argv[i])== 0)
 {
-    t1(r , f, o );
+    t1(r , entreefichier, sortiefichier);
 }
 else if (  strcmp ("p2" , argv[i])== 0)
 {
-    t2(r , f, o );
+    t2(r ,entreefichier ,  sortiefichier );
 }
 else if (  strcmp ("p3" , argv[i])== 0)
 {
-    t3(r , f, o );
+    t3(r , entreefichier, sortiefichier );
 }
 else
 {
