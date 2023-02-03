@@ -17,7 +17,7 @@ Les derniers jours nous ont permi de terminer notre projet et de nous concentrer
 Limitations fonctionnelles:
 
 Utiliser "/" pour séparer les deux dates.
-Utilisation d'un mode à la fois pour la température et la pression. C'est-à-dire qu'on ne peut pas faire par exemple: -t1 et -t2 en dans la même execution. Le dernier mode rentrer sera pris en compte, ici -t2.
+Utilisation d'un mode à la fois pour la température et la pression. C'est-à-dire qu'on ne peut pas faire par exemple: -t1 et -t2 dans la même execution. Le dernier mode rentré sera pris en compte, ici -t2.
 
 Sources:
 
