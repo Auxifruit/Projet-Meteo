@@ -4,7 +4,7 @@
 ## Table des matières
 1. [INFORMATIONS GÉNÉRALES](#informations-générales)
 2. [UTILISATION](#utilisation)
-3. [OPTIONS OBLIGATOIRE](#options-obligatoire)
+3. [OPTIONS OBLIGATOIRES](#options-obligatoires)
 4. [OPTIONS FACULTATIVES](#options-facultatives)
 5. [TYPE DE DONÉES](#type-de-données)
 6. [LIEUX](#lieux)
@@ -28,7 +28,7 @@ Pour lancer le programme:
 Le script a besoin de plusieures options pour fonctionner. Vous pouvez les saisir dans l'odre que vous voulez.
 Les options possibles pour le script sont de deux types: les données obligatoires et les données facultatives.
 
-## OPTIONS OBLIGATOIRE
+## OPTIONS OBLIGATOIRES
 
 ### TYPE DE DONNÉES
 
