@@ -6,24 +6,23 @@ Help () {
 
 Tri_en_C () {
     echo "On traite le fichier "$1"."
-    sleep 1
     if [ "$2" -eq 1 ] ; then
         if [ -n "$4" ] ; then
-            # r = 1
+            ./triABR r f "$1" o fichier.txt
         fi
         echo "Fonction tri ABR."
-        # fonction_abr($1,r)
+        ./triABR f "$1" o fichier.txt
     elif [ $3 -eq 1 ] ; then
         if [ -n "$4" ] ; then
-            # r = 1
+            ./triLC r f "$1" o fichier.txt
         fi
         echo "Fonction tri liste chainée."
-        # fonction_tab($1,r)
+        ./triLC f "$1" o fichier.txt
     else
         if [ -n "$4" ] ; then
-            # r = 1
+            ./triAVL r f "$1" o fichier.txt
         fi
         echo "Fonction tri AVL."
-        # fonction_avl($1,r)
+        ./triAVL f "$1" o fichier.txt
     fi
 }
