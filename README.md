@@ -86,6 +86,7 @@ Cette option n'est pas obligatoire, si elle n'est pas renseignée il n'y aura pa
 Le format des dates est une chaine de caractère de la forme : AAAA-MM-JJ (année-mois-jour). <br />
 Les données vont de 2010 à 2022. <br />
 Pour séparer les deux dates, veuillez utiliser le caractère "/", sinon la date ne sera pas prise en compte. <br />
+Veuillez faire attention car certaine station n'ont pas de données pendant une période donnée. <br />
 
 ### TRI
 
