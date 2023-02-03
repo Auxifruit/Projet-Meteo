@@ -11,9 +11,9 @@ Pour lancer le programme:
   $ bash projet.sh <options>
 
 Le script a besoin de plusieures options pour fonctionner. Vous pouvez les saisir dans l'odre que vous voulez.
-Les options possibles pour le script sont:
+Les options possibles pour le script sont de deux types: les données obligatoires et les données facultatives.
 
-## OPTIONS
+## OPTIONS OBLIGATOIRES
 
 # TYPE DE DONNÉES
 
@@ -32,6 +32,17 @@ Le dernier mode sera pris en compte.
 Au moins l'une de ces options doivent être présentes pour que le script fonctionne.
 Il n'y a pas de limite quant à l'utilisation de ces options.
 Vous pouvez demandez de traiter la température, le vent et l'altitude en une seule fois.
+
+# FICHIER
+
+L'option de fichier est:
+
+	-f<nom_fichier>
+	
+Cette option sert à connaître le nom du fichier d'entré pour que le script puisse acquérir toutes les données.
+Cette option est obligatoire pour que le script fonctionne.
+
+## OPTIONS FACULTATIVES
 
 # LIEUX
 
@@ -73,14 +84,14 @@ Ces options ne sont pas obligatoires, si aucune n'est renseignée le tri sera fa
 Seule une option de tri est possible à la fois.
 Si plusieurs options sont renseignées, la première selon l'ordre ci-dessus est prise en compte.
 
-# FICHIER
+# HELP
 
-L'option de fichier est:
+L'option d'aide est:
 
-	-f<nom_fichier>
-	
-Cette option sert à connaître le nom du fichier d'entré pour que le script puisse acquérir toutes les données.
-Cette option est obligatoire pour que le script fonctionne.
+	--help
+
+Cette option permet d'avoir des informations sur le script et comment l'utiliser.
+Cette option doit être renseignée seule pour fonctionner.
 
 ## EXEMPLE DE LANCEMENT
 
