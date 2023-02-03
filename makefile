@@ -14,19 +14,15 @@ HEADS=$(wildcard $(SRC)/*.h)
 
 # Substitution des .c en .o
 
-OBJS=$(SRCS:.c=.o)
-
-# Dossier pour l'executable
-
-#EXEC_DIR=exec
-#EXEC=$(EXEC_DIR)/test
+OBJS=$(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SRCS))
 
 # Debut du make
 
-all:test
+all:exec
 
-test: $(OBJS)
+exec: $(OBJS)
 	$(CC) $^ -o $@
 
-$(OBJ)/%.o: $(SRC)/*.c
+$(OBJ)/%.o: $(SRC)/%.c
 	$(CC) -c $< -o $@
+
