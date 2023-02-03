@@ -2,7 +2,7 @@
 
 ## INFORMATIONS GÉNÉRALES
 
-Le projet "nom du projet" permet depuis un fichier de données météo de les trier selon certaines conditions et de dessiner des graphiques. Le projet utiliser un script en shell et un programme en c.
+Le projet "nom du projet" permet depuis un fichier de données météo de les trier selon certaines conditions et de dessiner des graphiques. Le projet utilise un script en shell et un programme en c.
 
 ## UTILISATION
 
@@ -113,9 +113,9 @@ $ bash projet.sh -fdata.csv -d2015-12-8/2016-5-25 -h -p1 -S --abr
 	
 	--abr : le script fait le tri avec un ABR.
 
-## ERREURS POSSIBLES
+## ERREURS POSSIBLES EN SHELL
 
-Le script retourne des valeurs différentes si l'exécution s'est bien déroulé:
+Le script retourne des valeurs différentes si l'exécution s'est bien déroulée:
 
 	- 0: tout c'est bien passé
 	- 1: erreur argument
