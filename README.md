@@ -84,6 +84,7 @@ L'options de date:
 Cette option sert à savoir si vous voulez filtrer selon une date en particulier. <br />
 Cette option n'est pas obligatoire, si elle n'est pas renseignée il n'y aura pas de filtre selon la date. <br />
 Le format des dates est une chaine de caractère de la forme : AAAA-MM-JJ (année-mois-jour). <br />
+Les données vont de 2010 à 2022. <br />
 Pour séparer les deux dates, veuillez utiliser le caractère "/", sinon la date ne sera pas prise en compte. <br />
 
 ### TRI
@@ -104,8 +105,8 @@ Si plusieurs options sont renseignées, la première selon l'ordre ci-dessus est
 L'option d'aide est:
 	--help
 
-Cette option permet d'avoir des informations sur le script et comment l'utiliser.
-Cette option doit être renseignée seule pour fonctionner
+Cette option permet d'avoir des informations sur le script et comment l'utiliser. <br />
+Cette option doit être renseignée seule pour fonctionner. <br />
 
 ### EXEMPLE DE LANCEMENT
 
