@@ -115,7 +115,7 @@ Cette option doit être renseignée seule pour fonctionner. <br />
 Exemple d'utilisation:
 
 ```bash
-$ bash projet.sh -fdata.csv -d2015-8-25/2018-6-28 -h -p1 -S --abr
+$ bash projet.sh -fdata.csv -d2015-8-25/2018-6-28 -h -p1 -G --abr
 ```
 
 	-fdata.csv : le script utilise les données provenant du fichier data.csv.
@@ -126,7 +126,7 @@ $ bash projet.sh -fdata.csv -d2015-8-25/2018-6-28 -h -p1 -S --abr
 	
 	-p1 : le script traite les donneés de la pression en mode 1.
 	
-	-S : le script ne prend en compte que les données provenant de Saint-Pierre et Miquelon.
+	-G : le script ne prend en compte que les données provenant de Guyane.
 	
 	--abr : le script fait le tri avec un ABR.
 
