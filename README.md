@@ -177,8 +177,11 @@ Si nous reprennons l'exemple précédent, nous aurons donc un diagramme de type 
 
 Diagramme de type barre d'erreur pour la pression en mode 1:
 
+![alt text](https://github.com/Auxifruit/Projet-Meteo/blob/main/Exemple%20graphique/Graph_Pres1.png "Graph p1")
+
 Diagramme de type carte interpolée et colorée pour l'altitude:
 
+![alt text](https://github.com/Auxifruit/Projet-Meteo/blob/main/Exemple%20graphique/Graph_Alti.png "Graph h")
 
 ## CRÉATEURS
 
