@@ -123,6 +123,35 @@ Le script retourne des valeurs différentes si l'exécution s'est bien déroulé
 	- 2: erreur sur le fichier d'entré
 	- 3: erreur sur la date
 
+## COMMUNICATION AVEC LE C
+
+Après avoir crée les fichiers nécessaires. Le script shell les envoie au programme c avec les options suivantes:
+
+	-f<nom du fichier d'entré>
+	-o<nom du fichier de sortie>
+
+L'option -f permet au programme de savoir depuis quel fichier récupérer les données.
+Le programme tri les données selon le mode de tri choisi.
+Puis les envoie dans un fichier de sorti connu grâce à l'option -o.
+
+Une autre option est possible:
+
+	-r
+
+L'option -r permet de faire un tri inverse.
+
+## PRODUCTION DES DIAGRAMMES
+
+Le script shell récupère les fichiers sortis pour en faire des diagrammes grâce à Gnuplot.
+Le type de diagramme dépend des types de données:
+
+	-t1 et p1: diagramme de type barre d'erreur
+	-t2 et p2: diagramme de type ligne simple
+	-t3 et p3: diagramme de type multi-lignes
+	-w: diagramme de type vecteurs
+	-h: diagramme de type carte interpolée et colorée
+	-m: diagramme de type carte interpolée et colorée
+
 ## CRÉATEURS
 
 Binôme composé de Guillaume BARRÉ(aka Auxifruit) et Lucas BEZAMAT(aka Luczerty) en PRÉING 2 MI GROUPE 4
