@@ -384,8 +384,17 @@ if [ "$t" -eq 1 ] ; then
     }
     END{for(ID in som) print ID, min[ID], max[ID], som[ID]/compt[ID]}' > temperature1.txt    # On récupère l'ID de la station, la température max, la température min et la température moyenne que l'on met dans un fichier.txt
     sed -i 's/,/./g' temperature1.txt  # Transformer les virgules en points
+    sort -n temperature1.txt > temperature1_trie.txt
+    rm temperature1.txt
     echo -e "Le fichier sur la température en mode 1 a été crée.\n"  # Message de validation
-    Tri_en_C temperature1.txt "$abr" "$tab"
+    gnuplot -persist <<-EOFMarker
+    set title "Température des stations"    # Titre du gnuplot
+    set xlabel "ID de station"  # Nom de l'axe des x
+    set ylabel "Température"    # Nom de l'axe des y
+    set size ratio 1  # Taille du graphique
+    set xtics rotate    # Rotation du nom des valeurs de l'axe x
+    plot 'temperature1_trie.txt' using log(1):3:2:xtic(1) with filledcurve title "Ecart avec température min et max" lc rgb '#fde725', '' using log(1):4 smooth mcspline lw 2 title "Température moyenne"   # Commande pour produire le graphique
+EOFMarker
 elif [ "$t" -eq 2 ] ; then
     echo "Filtre selon la température en mode 2."
     tail -n+2 "$f" | awk -F";" '
@@ -399,8 +408,19 @@ elif [ "$t" -eq 2 ] ; then
     }
     END{for(DATE in som) print DATE, som[DATE]/compt[DATE]}' > temperature2.txt
     sed -i 's/,/./g' temperature2.txt   # Transformer les virgules en points
+    sort -n temperature2.txt > temperature2_trie.txt
+    rm temperature2.txt
     echo -e "Le fichier sur la température en mode 2 a été crée.\n"   # Message de validation
-    Tri_en_C temperature2.txt "$abr" "$tab"
+    gnuplot -persist <<-EOFMarker
+    set title "Moyenne des températures selon la date"  # Titre du gnuplot
+    set xlabel "Date"   # Nom de l'axe des x
+    set ylabel "Moyenne température"    # Nom de l'axe des y
+    set size ratio 1  # Taille du graphique
+    set xdata time  # On definit l'axe des x comme une date
+    set timefmt "%Y-%m-%dT%H"   # Format de la date
+    set xtic rotate # Rotation du nom des valeurs de l'axe x
+    plot 'temperature2_trie.txt' using 1:2 with l title "Température"   # Commande pour produire le graphique
+EOFMarker
 elif [ "$t" -eq 3 ] ; then
     echo "Filtre selon la température en mode 3."
     tail -n+2 "$f" | awk -F'[;T:]' '
@@ -411,8 +431,27 @@ elif [ "$t" -eq 3 ] ; then
         }
     }' > temperature3.txt
     sed -i 's/,/./g' temperature3.txt  # Transformer les virgules en points
+    sort -k2n temperature3.txt > temperature3_temp.txt
+    sort -n temperature3_temp.txt > temperature3_trie.txt
+    rm temperature3_temp.txt
+    rm temperature3.txt
     echo -e "Le fichier sur la pression atmosphérique en mode 3 a été crée.\n"   # Message de validation 
-    Tri_en_C temperature3.txt "$abr" "$tab"
+    gnuplot -persist <<-EOFMarker
+    set title "Températures selon la date/heure"
+    set xlabel "Jour"
+    set ylabel "Température"
+    unset key
+    set xdata time
+    set timefmt "%Y-%m-%d"
+    set format x "%Y-%m-%d"
+    set xtic rotate
+    set datafile separator " "
+    set palette model RGB defined (1 "#440154", 4 "#472c7a", 7 "#3b518b" , 10 "#2c718e", 13 "#21908d", 16 "#27ad81", 19 "#5cc863", 22 "#aadc32")
+    set cbrange [1:22]
+    set cbtics format ""
+    set cbtics ("1H" 1, "4H" 4, "7H" 7, "10H" 10, "13H" 13, "16H" 16, "19H" 19, "22H" 22)
+    plot 'temperature3_trie.txt' using 2:4:3 with l title "Température" palette
+EOFMarker
 fi
 
 # Pression atmosphérique
@@ -447,8 +486,17 @@ if [ "$p" -eq 1 ] ; then
     }
     END{for(ID in som) print ID, min[ID], max[ID], som[ID]/compt[ID]}' > pression1.txt    # On récupère l'ID de la station, la pression max, la pression min et la pression moyenne que l'on met dans un fichier.txt
     sed -i 's/,/./g' pression1.txt  # Transformer les virgules en points
+    sort -n pression1.txt > pression1_trie.txt
+    rm pression1.txt
     echo -e "Le fichier sur la pression atmosphérique en mode 1 a été crée.\n"   # Message de validation
-    Tri_en_C pression1.txt "$abr" "$tab"
+    gnuplot -persist <<-EOFMarker
+    set title "Pression des stations"   # Titre du gnuplot
+    set xlabel "ID de station"  # Nom de l'axe des x
+    set ylabel "Pression"   # Nom de l'axe des y
+    set size ratio 1  # Taille du graphique
+    set xtics rotate    # Rotation du nom des valeurs de l'axe x
+    plot 'pression1_trie.txt' using log(1):3:2:xtic(1) with filledcurve title "Ecart avec pression min et max" lc rgb '#fde725', '' using log(1):4 smooth mcspline lw 2 title "Pression moyenne" # Commande pour produire le graphique
+EOFMarker
 elif [ "$p" -eq 2 ] ; then
     echo "Filtre selon la pression atmosphérique en mode 2."
     tail -n+2 "$f" | awk -F";" '
@@ -462,8 +510,19 @@ elif [ "$p" -eq 2 ] ; then
     }
     END{for(DATE in som) print DATE, som[DATE]/compt[DATE]}' > pression2.txt
     sed -i 's/,/./g' pression2.txt  # Transformer les virgules en points
+    sort -n pression2.txt > pression2_trie.txt
+    rm pression2.txt
     echo -e "Le fichier sur la pression atmosphérique en mode 2 a été crée.\n"   # Message de validation
-    Tri_en_C pression2.txt "$abr" "$tab"
+    gnuplot -persist <<-EOFMarker
+    set title "Moyenne des pression selon la date"  # Titre du gnuplot
+    set xlabel "Date"   # Nom de l'axe des x
+    set ylabel "Moyenne pression"   # Nom de l'axe des y
+    set size ratio 1  # Taille du graphique
+    set xdata time  # On definit l'axe des x comme une date
+    set timefmt "%Y-%m-%dT%H"   # Format de la date
+    set xtic rotate # Rotation du nom des valeurs de l'axe x
+    plot 'pression2_trie.txt' using 1:2 with l title "Pression" # Commande pour produire le graphique
+EOFMarker
 elif [ "$p" -eq 3 ] ; then
     echo "Filtre selon la pression atmosphérique en mode 3."
     tail -n+2 "$f" | awk -F'[;T:]' '
@@ -474,8 +533,26 @@ elif [ "$p" -eq 3 ] ; then
         }
     }' > pression3.txt
     sed -i 's/,/./g' pression3.txt  # Transformer les virgules en points
+    sort -k2n pression3.txt > pression3_temp.txt
+    sort -n pression3_temp.txt > pression3_trie.txt
+    rm pression3_temp.txt
+    rm pression3.txt
     echo -e "Le fichier sur la pression atmosphérique en mode 3 a été crée.\n"   # Message de validation 
-    Tri_en_C pression3.txt "$abr" "$tab"
+    gnuplot -persist <<-EOFMarker
+    set title "Pression selon la date/heure"
+    set xlabel "Jour"
+    set ylabel "Pression"
+    unset key
+    set xdata time
+    set timefmt "%Y-%m-%d %H"
+    set xtic rotate
+    set datafile separator " "
+    set palette model RGB defined (1 "#440154", 4 "#472c7a", 7 "#3b518b" , 10 "#2c718e", 13 "#21908d", 16 "#27ad81", 19 "#5cc863", 22 "#aadc32")
+    set cbrange [1:22]
+    set cbtics format ""
+    set cbtics ("1H" 1, "4H" 4, "7H" 7, "10H" 10, "13H" 13, "16H" 16, "19H" 19, "22H" 22)
+    plot 'pression3_trie.txt' using 2:4:3 with l title "Prssion" palette
+EOFMarker
 fi
 
 # Vent
@@ -499,8 +576,16 @@ if [ "$w" -eq 1 ] ; then
     }
     END{for(ID in somDIRX) print ID, somDIRX[ID]/comptDIR[ID], somDIRY[ID]/comptDIR[ID], somVIT[ID]/comptVIT[ID], long[ID], lat[ID]}' > vent.txt  # On récupère l'ID de la station, l'orientation moyenne des vents et la vitesse moyenne des vents que l'on met dans un fichier.tx
     sed -i 's/,/./g' vent.txt   # Transformer les virgules en points
+    sort -n vent.txt > vent_trie.txt
     echo -e "Le fichier sur le vent a été crée.\n"    # Message de validation
-    Tri_en_C vent.txt "$abr" "$tab"
+    gnuplot -persist <<-EOFMarker
+    set title "Vitesse moyen du vent selon des vecteurs"  # Titre du gnuplot
+    set xlabel "Longitude"  # Nom de l'axe des x
+    set ylabel "Latitude"   # Nom de l'axe des y
+    set size ratio 1    # Taille du graphique
+    set palette rgb 33,13,10    # Mis en place d'une palette pour des couleurs
+    plot 'vent_trie.txt' using 5:6:(column(2)*3):(column(3)*3):4 with vectors palette title "vent"  # Commande pour produire le graphique. On a multiplé les composantes x et y des vecteurs pour mieux les voir
+EOFMarker
 fi
 
 # Altitude
@@ -518,8 +603,17 @@ if [ "$h" -eq 1 ] ; then
     }
     END{for(ID in alt) print alt[ID], long[ID], lat[ID]}' > altitude.txt   # On récupère l'ID de la station, l'altitude et les coordonnées que l'on met dans un fichier.txt
     sed -i 's/,/./g' altitude.txt  # Transformer les virgules en points
+    sort -rn altitude.txt > altitude_trie.txt
     echo -e "Le fichier sur l'altitude a été crée.\n"    # Message de validation
-    Tri_en_C altitude.txt "$abr" "$tab" r
+
+    gnuplot -persist <<-EOFMarker
+    set title "Altitude des station"    # Titre du gnuplot
+    set xlabel "Longitude"  # Nom de l'axe des x
+    set ylabel "Latitude"   # Nom de l'axe des y
+    set size ratio 1  # Taille du graphique
+    set palette rgb 33,13,10    # Mis en place d'une palette pour des couleurs
+    splot 'altitude.txt' using 2:3:1 ls 7 ps 2 palette title "Altitudes des stations"  # Commande pour produire le graphique
+EOFMarker
 fi
 
 # Humidité
@@ -543,6 +637,7 @@ if [ "$m" -eq 1 ] ; then
     }
     END{for(ID in moist) print moist[ID], long[ID], lat[ID]}' > humidite.txt     # On récupère l'ID de la station, l'humidité et les coordonnées que l'on met dans un fichier.txt
     sed -i 's/,/./g' humidite.txt  # Transformer les virgules en points
+    sort -rn humidite.txt > humidite_trie.txt
     echo -e "Le fichier sur l'humidite a été crée.\n"    # Message de validation
     Tri_en_C humidite.txt "$abr" "$tab" r
 fi
