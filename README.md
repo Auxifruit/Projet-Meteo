@@ -114,12 +114,12 @@ Cette option doit être renseignée seule pour fonctionner. <br />
 Exemple d'utilisation:
 
 ```bash
-$ bash projet.sh -fdata.csv -d2015-12-8/2016-5-25 -h -p1 -S --abr
+$ bash projet.sh -fdata.csv -d2015-8-25/2018-6-28 -h -p1 -S --abr
 ```
 
 	-fdata.csv : le script utilise les données provenant du fichier data.csv.
 	
-	-d2015-12-8/2016-5-25 : le script ne prend en compte que les données entre le 8-12-2015 et le 25-5-2016.
+	-d2015-8-25/2018-6-28 : le script ne prend en compte que les données entre le 25-8-2015 et le 28-6-2018.
 	
 	-h : le script traite les donneés de l'altitude.
 	
