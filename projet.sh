@@ -24,13 +24,12 @@ fi
 
 # On vérifie si l'exécutable du programme en c est présent
 
-if [ ! -e test ] ; then   # S'il n'est pas présent
+if [ ! -e exec ] ; then   # S'il n'est pas présent
     echo "L'executable n'est pas présent: compilation en cours."
     sleep 1
     make
     echo "L'executable a été crée."
     sleep 1.5
-    clear
 fi
 
 
@@ -344,7 +343,7 @@ elif [ -n "$Q" ] ; then     # On vérifie si un filtrage selon le lieux, ici l'A
     f="filtre.csv"
     echo -e "Le filtrage selon les données d'Antarctique a été effectué.\n"   # Message de validation
 else
-    echo "Pas de filtrage selon le lieux."
+    echo -e "Pas de filtrage selon le lieux.\n"
 fi
 
 
@@ -404,11 +403,11 @@ elif [ "$t" -eq 2 ] ; then
     Tri_en_C temperature2.txt "$abr" "$tab"
 elif [ "$t" -eq 3 ] ; then
     echo "Filtre selon la température en mode 3."
-    tail -n+2 "$f" | awk -F";" '
+    tail -n+2 "$f" | awk -F'[;T:]' '
     {
-        if($11!="")
+        if($15!="")
         {
-            print $1, $2, $11
+            print $1, $2, $3, $15
         }
     }' > temperature3.txt
     sed -i 's/,/./g' temperature3.txt  # Transformer les virgules en points
@@ -466,12 +465,12 @@ elif [ "$p" -eq 2 ] ; then
     echo -e "Le fichier sur la pression atmosphérique en mode 2 a été crée.\n"   # Message de validation
     Tri_en_C pression2.txt "$abr" "$tab"
 elif [ "$p" -eq 3 ] ; then
-    echo "Filtre selon la pression atmosphérique en mode 2."
-    tail -n+2 "$f" | awk -F";" '
+    echo "Filtre selon la pression atmosphérique en mode 3."
+    tail -n+2 "$f" | awk -F'[;T:]' '
     {
-        if($7!="")
+        if($11!="")
         {
-            print $1, $2, $7
+            print $1, $2, $3 ,$11
         }
     }' > pression3.txt
     sed -i 's/,/./g' pression3.txt  # Transformer les virgules en points
@@ -487,7 +486,7 @@ if [ "$w" -eq 1 ] ; then
     {
     if($4!="")
     {
-        ID=$1; DIR=$4; somDIRX[ID]=somDIRX[ID]+DIR*cos(DIR); somDIRY[ID]=somDIRY[ID]+DIR*sin(DIR); comptDIR[ID]++
+        ID=$1; DIR=$4; somDIRX[ID]=somDIRX[ID]+DIR*sin(DIR); somDIRY[ID]=somDIRY[ID]+DIR*cos(DIR); comptDIR[ID]++
     }
     if($5!="")
     {
