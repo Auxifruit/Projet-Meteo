@@ -116,8 +116,8 @@ while true ; do # On analyse tous les arugments
             ;;
         -p)
             p=$2
-            if [ "$p" -lt 1 ]  || [ "$p" -gt 3 ] ; then   # On vérifie le mode pour la température
-                echo "Erreur: mode incorrect pour la température. Sasir t1, t2 ou t3 selon le mode voulu."  # Message d'erreur
+            if [ "$p" -lt 1 ]  || [ "$p" -gt 3 ] ; then   # On vérifie le mode pour la pression
+                echo "Erreur: mode incorrect pour la pression. Sasir p1, p2 ou p3 selon le mode voulu."  # Message d'erreur
                 echo -e "Référez-vous au --help si vous avez besoin d'aide.\n"
                 exit 1
             fi
@@ -198,7 +198,7 @@ if [ -n "$d" ] ; then   # On vérifie si un filtrage selon la date est nécessai
         fi
     fi
 
-    echo "Tri selon la date min et max"
+    echo "Filtre selon les dates min et max."
 
     # Trie selon la date min et max
 
@@ -283,8 +283,9 @@ if [ -n "$d" ] ; then   # On vérifie si un filtrage selon la date est nécessai
             }
         }
     }' "$f" >> filtre.csv
+    echo -e "Filtre selon les dates min et max effectué. \n"
     else
-        echo "Pas de tri selon une date min et max."
+        echo -e "Pas de tri selon des dates min et max. \n"
 fi
 
 # Deuxième filtrage: lieux
@@ -294,6 +295,7 @@ if [ -n "$d" ] ; then
 fi
         
 if [ -n "$F" ] ; then       # On vérifie si un filtrage selon le lieux, ici la France, est nécessaire
+    echo "Filtre selon les données de France et de Corse."
     echo $(head -n1 "$f") > lieux.csv       # On insert la prémière ligne avec la signification de chaque colonne
     awk -F ";" '$15 ~ /[0-9][0-6][0-9][0-9][0-9]/' "$f" >> lieux.csv    # On prend en compte seulement les donneés provenant de France
     awk -F ";" '$15 ~ /[2][a-z][0-9][0-9][0-9]/' "$f" >> lieux.csv      # Et on ajoute les donneés provenant de Corse
@@ -302,6 +304,7 @@ if [ -n "$F" ] ; then       # On vérifie si un filtrage selon le lieux, ici la 
     echo -e "Le filtrage selon les données de France et de Corse a été effectué.\n"   # Message de validation
 
 elif [ -n "$G" ] ; then     # On vérifie si un filtrage selon le lieux, ici la Guyane, est nécessaire
+    echo "Filtre selon les données de Guyane."
     echo $(head -n1 "$f") > lieux.csv   # On insert la prémière ligne avec la signification de chaque colonne
     awk -F ";" '$15 ~ /[9][7][3][0-9][0-9]/' "$f" >> lieux.csv   # On prend en compte seulement les donneés provenant de Guyane
     mv lieux.csv filtre.csv
@@ -309,6 +312,7 @@ elif [ -n "$G" ] ; then     # On vérifie si un filtrage selon le lieux, ici la 
     echo -e "Le filtrage selon les données de Guyane a été effectué.\n"   # Message de validation
 
 elif [ -n "$S" ] ; then     # On vérifie si un filtrage selon le lieux, ici Saint-Pierre et Miquelon, est nécessaire
+    echo "Filtre selon les données de Saint-Pierre et Miquelon."
     echo $(head -n1 "$f") > lieux.csv   # On insert la prémière ligne avec la signification de chaque colonne
     awk -F ";" '$15 ~ /[9][7][5][0-9][0-9]/' "$f" >> lieux.csv   # On prend en compte seulement les donneés provenant de Saint-Pierre-et-Miquelon
     mv lieux.csv filtre.csv
@@ -316,6 +320,7 @@ elif [ -n "$S" ] ; then     # On vérifie si un filtrage selon le lieux, ici Sai
     echo -e "Le filtrage selon les données de Saint-Pierre et Miquelon a été effecuté.\n"   # Message de validation
 
 elif [ -n "$A" ] ; then     # On vérifie si un filtrage selon le lieux, ici les Antilles, est nécessaire
+    echo "Filtre selon les données des Antilles."
     echo $(head -n1 "$f") > lieux.csv   # On insert la prémière ligne avec la signification de chaque colonne
     awk -F ";" '$15 ~ /[9][7][1,2,7,8][0-9][0-9]/' "$f" >> lieux.csv    # On prend en compte seulement les donneés provenant des Antilles
     mv lieux.csv filtre.csv
@@ -323,6 +328,7 @@ elif [ -n "$A" ] ; then     # On vérifie si un filtrage selon le lieux, ici les
     echo -e "Filtrage selon les données des Antilles effectué.\n"    # Message de validation
 
 elif [ -n "$O" ] ; then     # On vérifie si un filtrage selon le lieux, ici l'océan Indien, est nécessaire
+    echo "Filtre selon les données des îles de l'océan Indien."
     echo $(head -n1 "$f") > lieux.csv   # On insert la prémière ligne avec la signification de chaque colonne
     LC_NUMERIC="C" awk -F'[;,]' '$10 ~ /-[1-4][1-9]/' meteo_filtered_data_v1.csv >> lieux.csv
     #awk -F ";" '$15 ~ /[9][8][4][1][0-3]/' "$f" >> lieux.csv    # On prend en compte seulement les donneés provenant des îles de l'océan Indien
@@ -331,6 +337,7 @@ elif [ -n "$O" ] ; then     # On vérifie si un filtrage selon le lieux, ici l'o
     echo -e "Le filtrage selon les données des îles de l'océan Indien a été effectué.\n"  # Message de validation
 
 elif [ -n "$Q" ] ; then     # On vérifie si un filtrage selon le lieux, ici l'Antarctique, est nécessaire
+    echo "Filtre selon les données d'Antarctique."
     echo $(head -n1 "$f") > lieux.csv   # On insert la prémière ligne avec la signification de chaque colonne
     awk -F ";" '$10 ~ /^[-6][6]/' "$f" >> lieux.csv     # On prend en compte seulement les donneés provenant d'Antarctique
     mv lieux.csv filtre.csv
@@ -345,9 +352,6 @@ fi
 
 
 # Troisième filtrage: types de données
-
-echo "Filtre selon le/les types de données."
-sleep 1
 
 # Température
 
@@ -380,6 +384,7 @@ if [ "$t" -eq 1 ] ; then
     }
     }
     END{for(ID in som) print ID, min[ID], max[ID], som[ID]/compt[ID]}' > temperature1.txt    # On récupère l'ID de la station, la température max, la température min et la température moyenne que l'on met dans un fichier.txt
+    sed -i 's/,/./g' temperature1.txt  # Transformer les virgules en points
     echo -e "Le fichier sur la température en mode 1 a été crée.\n"  # Message de validation
     Tri_en_C temperature1.txt "$abr" "$tab"
 elif [ "$t" -eq 2 ] ; then
@@ -394,6 +399,7 @@ elif [ "$t" -eq 2 ] ; then
     }
     }
     END{for(DATE in som) print DATE, som[DATE]/compt[DATE]}' > temperature2.txt
+    sed -i 's/,/./g' temperature2.txt   # Transformer les virgules en points
     echo -e "Le fichier sur la température en mode 2 a été crée.\n"   # Message de validation
     Tri_en_C temperature2.txt "$abr" "$tab"
 elif [ "$t" -eq 3 ] ; then
@@ -405,6 +411,7 @@ elif [ "$t" -eq 3 ] ; then
             print $1, $2, $11
         }
     }' > temperature3.txt
+    sed -i 's/,/./g' temperature3.txt  # Transformer les virgules en points
     echo -e "Le fichier sur la pression atmosphérique en mode 3 a été crée.\n"   # Message de validation 
     Tri_en_C temperature3.txt "$abr" "$tab"
 fi
@@ -440,6 +447,7 @@ if [ "$p" -eq 1 ] ; then
     }
     }
     END{for(ID in som) print ID, min[ID], max[ID], som[ID]/compt[ID]}' > pression1.txt    # On récupère l'ID de la station, la pression max, la pression min et la pression moyenne que l'on met dans un fichier.txt
+    sed -i 's/,/./g' pression1.txt  # Transformer les virgules en points
     echo -e "Le fichier sur la pression atmosphérique en mode 1 a été crée.\n"   # Message de validation
     Tri_en_C pression1.txt "$abr" "$tab"
 elif [ "$p" -eq 2 ] ; then
@@ -454,6 +462,7 @@ elif [ "$p" -eq 2 ] ; then
     }
     }
     END{for(DATE in som) print DATE, som[DATE]/compt[DATE]}' > pression2.txt
+    sed -i 's/,/./g' pression2.txt  # Transformer les virgules en points
     echo -e "Le fichier sur la pression atmosphérique en mode 2 a été crée.\n"   # Message de validation
     Tri_en_C pression2.txt "$abr" "$tab"
 elif [ "$p" -eq 3 ] ; then
@@ -465,6 +474,7 @@ elif [ "$p" -eq 3 ] ; then
             print $1, $2, $7
         }
     }' > pression3.txt
+    sed -i 's/,/./g' pression3.txt  # Transformer les virgules en points
     echo -e "Le fichier sur la pression atmosphérique en mode 3 a été crée.\n"   # Message de validation 
     Tri_en_C pression3.txt "$abr" "$tab"
 fi
@@ -473,21 +483,23 @@ fi
 
 if [ "$w" -eq 1 ] ; then
     echo "Filtre selon le vent."
-    tail -n+2 "$f" | awk -F";" '
+    tail -n+2 "$f" | awk -F'[;,]' '
     {
     if($4!="")
     {
-        ID=$1; DIRV=$4; somDIRV[ID]=somDIRV[ID]+DIRV; comptDIRV[ID]++
+        ID=$1; DIR=$4; somDIRX[ID]=somDIRX[ID]+DIR*cos(DIR); somDIRY[ID]=somDIRY[ID]+DIR*sin(DIR); comptDIR[ID]++
     }
     if($5!="")
     {
-        VITV=$5; somVITV[ID]=somVITV[ID]+VITV; comptVITV[ID]++; CO=$10
+        VIT=$5; somVIT[ID]=somVIT[ID]+VIT; comptVIT[ID]++; LAT=$10; LONG=$11
     }
     }
-    !(CO in coor) {
-        coor[ID]=CO
+    !(LAT in lat) {
+        lat[ID]=LAT
+        long[ID]=LONG
     }
-    END{for(ID in somDIRV) print ID, somDIRV[ID]/comptDIRV[ID], somVITV[ID]/comptVITV[ID], coor[ID]}' > vent.txt  # On récupère l'ID de la station, l'orientation moyenne des vents et la vitesse moyenne des vents que l'on met dans un fichier.tx
+    END{for(ID in somDIRX) print ID, somDIRX[ID]/comptDIR[ID], somDIRY[ID]/comptDIR[ID], somVIT[ID]/comptVIT[ID], long[ID], lat[ID]}' > vent.txt  # On récupère l'ID de la station, l'orientation moyenne des vents et la vitesse moyenne des vents que l'on met dans un fichier.tx
+    sed -i 's/,/./g' vent.txt   # Transformer les virgules en points
     echo -e "Le fichier sur le vent a été crée.\n"    # Message de validation
     Tri_en_C vent.txt "$abr" "$tab"
 fi
@@ -506,6 +518,7 @@ if [ "$h" -eq 1 ] ; then
         long[ID]=LONG
     }
     END{for(ID in alt) print alt[ID], long[ID], lat[ID]}' > altitude.txt   # On récupère l'ID de la station, l'altitude et les coordonnées que l'on met dans un fichier.txt
+    sed -i 's/,/./g' altitude.txt  # Transformer les virgules en points
     echo -e "Le fichier sur l'altitude a été crée.\n"    # Message de validation
     Tri_en_C altitude.txt "$abr" "$tab" r
 fi
@@ -530,6 +543,7 @@ if [ "$m" -eq 1 ] ; then
         }
     }
     END{for(ID in moist) print moist[ID], long[ID], lat[ID]}' > humidite.txt     # On récupère l'ID de la station, l'humidité et les coordonnées que l'on met dans un fichier.txt
+    sed -i 's/,/./g' humidite.txt  # Transformer les virgules en points
     echo -e "Le fichier sur l'humidite a été crée.\n"    # Message de validation
     Tri_en_C humidite.txt "$abr" "$tab" r
 fi
