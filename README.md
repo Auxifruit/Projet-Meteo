@@ -26,7 +26,7 @@ Pour lancer le programme:
   $ bash projet.sh <options>
 ```
 Le script a besoin de plusieures options pour fonctionner. Vous pouvez les saisir dans l'odre que vous voulez.
-Les options possibles pour le script sont:
+Les options possibles pour le script sont de deux types: les données obligatoires et les données facultatives.
 
 ## OPTIONS OBLIGATOIRE
 
