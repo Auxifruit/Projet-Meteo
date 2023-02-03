@@ -70,6 +70,7 @@ Cette option sert à savoir si vous voulez filtrer selon une date en particulier
 Cette option n'est pas obligatoire, si elle n'est pas renseignée il n'y aura pas de filtre selon la date.
 Le format des dates est une chaine de caractère de la forme : AAAA-MM-JJ (année-mois-jour).
 Pour séparer les deux dates, veuillez utiliser le caractère "/", sinon la date ne sera pas prise en compte.
+Veuillez faire attention car certaine station n'ont pas de données pendant une période donnée.
 
 # TRI
 
@@ -98,12 +99,12 @@ Cette option doit être renseignée seule pour fonctionner.
 Exemple d'utilisation:
 
 
-$ bash projet.sh -fdata.csv -d2015-12-8/2016-5-25 -h -p1 -S --abr
+$ bash projet.sh -fdata.csv -d2015-8-25/2018-6-28 -h -p1 -S --abr
 
 
 	-fdata.csv : le script utilise les données provenant du fichier data.csv.
 	
-	-d2015-12-8/2016-5-25 : le script ne prend en compte que les données entre le 8-12-2015 et le 25-5-2016.
+	-d2015-8-25/2018-6-28 : le script ne prend en compte que les données entre le 25-8-2015 et le 28-6-2018.
 	
 	-h : le script traite les donneés de l'altitude.
 	
