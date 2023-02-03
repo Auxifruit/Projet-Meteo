@@ -144,7 +144,7 @@ Le script retourne des valeurs différentes si l'exécution s'est bien déroulé
 
 ### COMMUNICATION AVEC LE C
 
-Après avoir créer les fichiers nécessaires. Le script shell les envoies au programme c avec les options suivantes:
+Après avoir crée les fichiers nécessaires. Le script shell les envoie au programme c avec les options suivantes:
 
 	-f<nom du fichier d'entré>
 	-o<nom du fichier de sortie>
