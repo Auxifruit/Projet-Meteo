@@ -460,7 +460,7 @@ void parcoursvect (pAvl z , FILE* f)
 	if(z!= NULL) 
 	{ 
     parcoursvect(z->fg, f); // on regarde dans le fils gauche  
-	fprintf (f, "%f %f %f %f %f\n", z->longitude , z->latitude , z->x , z->y , z->data );  
+	fprintf (f, "%f %f %f %f %f\n", z->x , z->y , z->data, z->longitude , z->latitude  ); 
 	parcoursvect(z->fd,f); // on regarde dans le fils droit
 	}	 
 }
@@ -471,7 +471,8 @@ void parcoursvectinvers (pAvl z , FILE* f)
 	if(z!= NULL) 
 	{ 
 	parcoursvectinvers (z->fd,f); // on regarde dans le fils droit    
-	fprintf (f, "%f %f %f %f %f\n", z->longitude , z->latitude , z->x , z->y , z->data );  
+      
+	fprintf (f, "%f %f %f %f %f %d\n" , z->x , z->y , z->data , z->longitude , z->latitude , z->numstation );  
     parcoursvectinvers (z->fg, f); // on regarde dans le fils gauche  
 	}	 
 }
@@ -571,12 +572,24 @@ float x , y ;
 FILE *w= fopen(entreefichier,"r");
 FILE *w2= fopen(sortiefichier,"w"); 
 
-int *h ;
-while (fscanf(w ,"%d %f %f %f %f\n" , &numstation , &data ,  &angle , &lat , &longi )!=EOF)
+if (w==NULL)
 {
-x=cosf (angle) ;
-y=sinf (angle);
-z=insertionAVL( z, x, y,  data  , 0  ,0 , 0 , longi ,lat, 0 , 0 ,0 , 0, numstation , h);
+    printf(" erreur memoire");
+    exit (2);
+
+}
+
+if (w==NULL)
+{
+    printf(" erreur memoire");
+    exit (3);
+    
+}
+int h =0 ;
+while (fscanf(w ,"%d %f %f %f %f %f\n" , &numstation ,  &x , &y, &data , &longi, &lat  )!=EOF)
+{
+
+z=insertionAVLNumstat( z, x, y,  data  , 0  ,0 , 0 , longi ,lat, 0 , 0 ,0 , 0, numstation , &h);
 }
 if (r== 1)
 parcoursvect(z , w2);
