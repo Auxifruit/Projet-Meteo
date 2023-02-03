@@ -192,8 +192,8 @@ void parcoursvect (pListe z , FILE* f)
 	if(z!= NULL) 
 	{ 
     
-	fprintf (f, "%f %f %f %f %f\n", z->longitude , z->latitude , z->x , z->y , z->data );  
-	parcoursvect(z->suivant , f); 
+	fprintf (f, "%f %f %f %f %f\n",  z->x , z->y , z->data ,z->longitude , z->latitude);  
+	parcoursvect(z->suivant , f);
 	}	 
 }
 
@@ -557,14 +557,13 @@ FILE *w= fopen(entreefichier,"r");
 FILE *w2= fopen(sortiefichier,"w"); 
 
 
-while (fscanf(w ,"%d %f %f %f %f\n" , &numstation , &data ,  &angle  , &longi, &lat )!=EOF)
+while (fscanf(w ,"%d %f %f %f %f %f\n" , &numstation ,  &x , &y, &data , &longi, &lat  )!=EOF)
 {
-x=cosf (angle) ;
-y=sinf (angle);
+
 z=insertionliste( z, x, y,  data  , 0  ,0 , 0 , longi ,lat, 0 , 0 ,0 , 0, numstation);
 }
 
-mergesort(&z) ; 
+mergesortnumst(&z) ; 
 
 if (r== 1)
 {
