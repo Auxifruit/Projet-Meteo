@@ -7,7 +7,7 @@
 typedef struct arbre {
     int data;           // element du noeud
     float lat; 
-    float longitutude ; 
+    float longitude ; 
     int numstation;
     struct arbre* fg;   // pointeur sur fils gauche
     struct arbre* fd;   // pointeur sur fils droit
@@ -20,7 +20,7 @@ typedef struct vect {
     float x;
     float y;           // element du noeud
     float lat; 
-    float longitutude ; 
+    float longitude ; 
     int numstation;	 
     struct vect* fg;   // pointeur sur fils gauche
     struct vect* fd;   // pointeur sur fils droit
@@ -57,7 +57,7 @@ pArbre creerArbre(int n, int numstation , float lat,float longitude) { // a poin
     if(noeud == NULL) { // verification allocation
         exit(1); // si problème
     }
-    noeud->longitutude=longitude;
+    noeud->longitude=longitude;
     noeud->lat=lat;
     noeud->numstation= numstation;
     
@@ -75,7 +75,7 @@ pVect creerVect(float n, int numstation , float lat,float longitude , float x , 
     }
     noeud->x=x;
     noeud->y=y;
-    noeud->longitutude=longitude;
+    noeud->longitude=longitude;
     noeud->lat=lat;
     noeud->numstation= numstation;
     
@@ -153,13 +153,13 @@ pVect insertionABRvect(pVect a, float data, int  numstation ,  float lat, float 
         return a;
     } 
    
-    else if(data <= a->data) 
+    else if(numstation<= a->numstation) 
     {
      
      a->fg = insertionABRvect(a->fg,data, numstation , lat,longitude , x , y);
     } 
     
-    else if(data > a->data ) 
+    else if(numstation > a->numstation ) 
     {
   
         a->fd = insertionABRvect(a->fd, data , numstation , lat, longitude, x , y  );
@@ -309,7 +309,7 @@ void parcours (pArbre z , FILE* f)
 	{ 
 	
 	parcours(z->fg, f); // on regarde dans le fils gauche 
-	 fprintf (f, "%f %f %d\n", z->longitutude , z->lat , z->data );  
+	 fprintf (f, "%f %f %d\n", z->longitude , z->lat , z->data );  
 	parcours(z->fd,f); // on regarde dans le fils droit
 	}	 
 }
@@ -321,7 +321,7 @@ void parcoursr (pArbre z , FILE* f)
 	{ 
 	
 	parcoursr(z->fd,f); // on regarde dans le fils droit
-	 fprintf (f, "%f %f %d\n", z->longitutude , z->lat , z->data );  
+	 fprintf (f, "%f %f %d \n", z->longitude , z->lat , z->data  );  
 	parcoursr(z->fg, f); // on regarde dans le fils gauche 
 	}	 
 }
@@ -331,7 +331,7 @@ void parcoursvect (pVect z , FILE* f)
 	if(z!= NULL) 
 	{ 
     parcoursvect(z->fg, f); // on regarde dans le fils gauche  
-	fprintf (f, "%f %f %f %f %f\n", z->longitutude , z->lat , z->x , z->y , z->data );  
+	fprintf (f, "%f %f %f %f %f\n", z->x , z->y , z->data, z->lat,  z->longitude  ); 
 	parcoursvect(z->fd,f); // on regarde dans le fils droit
 	}	 
 }
@@ -341,7 +341,7 @@ void parcoursvectr (pVect z , FILE* f)
 	if(z!= NULL) 
 	{
     parcoursvectr(z->fd,f); // on regarde dans le fils droit
-    fprintf (f, "%f %f %f %f %f\n", z->longitutude , z->lat , z->x , z->y , z->data );  
+    fprintf (f, "%f %f %f %f %f\n", z->x , z->y , z->data ,z->lat , z->longitude  );  
 	parcoursvectr(z->fg, f); // on regarde dans le fils gauche  
 	}	 
 }
@@ -451,9 +451,8 @@ void suppresiontemp( pTemp z )
     }
     
     
-        
-    
-}
+}      
+
 
 //////////////////////////////////////////////////////////////////////////////// fonction par option ///////////////////////////////////////////////////////////////////
 void humiditédata (int r , char entreefichier [20] , char sortiefichier[20])
@@ -517,7 +516,7 @@ FILE *w2= fopen(sortiefichier,"w");
     
  }
 
-while (fscanf(w ,"%d %f %f %f %f %f \n" , &numstation  , &x , &y,&nouvelleval   , &lat , &longi  )!=EOF)
+while (fscanf(w ,"%d %f %f %f %f %f\n" , &numstation ,  &x , &y, &nouvelleval ,&longi , &lat  )!=EOF)
 {
 
 z=insertionABRvect(z ,nouvelleval, numstation , longi  ,lat, x , y);
